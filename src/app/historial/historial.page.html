@@ -1,0 +1,66 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Historial de Compras
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="isSelectionMode ? deleteSelected() : toggleSelectionMode()"
+        [color]="isSelectionMode ? 'danger' : 'primary'">
+        <ng-container *ngIf="!isSelectionMode">
+          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+        </ng-container>
+        <ng-container *ngIf="isSelectionMode">
+          <span style="font-size: 0.9rem; margin-right: 5px;">{{ selectedPurchaseIds.length }}</span>
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
+        </ng-container>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Historial</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div *ngIf="shoppingService.history().length === 0" class="ion-text-center ion-padding">
+    <p>No hay compras anteriores.</p>
+  </div>
+
+  <ion-accordion-group class="history-list">
+    <ion-accordion *ngFor="let purchase of shoppingService.history()" class="history-accordion">
+      <ion-item slot="header" color="light">
+        <!-- Checkbox for selection mode -->
+        <ion-checkbox *ngIf="isSelectionMode" slot="start" [checked]="selectedPurchaseIds.includes(purchase.id)"
+          (ionChange)="togglePurchaseSelection(purchase.id)" (click)="$event.stopPropagation()"></ion-checkbox>
+
+        <ion-icon *ngIf="!isSelectionMode" name="calendar-outline" slot="start" color="primary"></ion-icon>
+
+        <ion-label>
+          <h3>{{ purchase.date | date:'dd MMM yyyy' }}</h3>
+          <p>{{ purchase.date | date:'HH:mm' }}</p>
+        </ion-label>
+        <ion-badge slot="end" color="success">{{ purchase.total | currency:'EUR' }}</ion-badge>
+      </ion-item>
+
+      <div class="ion-padding content-wrapper" slot="content">
+        <ion-list lines="none">
+          <ion-item *ngFor="let item of purchase.items" button class="history-item"
+            (click)="editPrice(purchase.id, item.id, item.price || 0)">
+            <ion-label>
+              <h3>{{ item.name }}</h3>
+              <p>Cant: {{ item.quantity }}</p>
+            </ion-label>
+            <ion-note slot="end" class="price-note">
+              {{ (item.price || 0) * item.quantity | currency:'EUR' }}
+              <ion-icon name="create-outline" size="small" class="edit-icon"></ion-icon>
+            </ion-note>
+          </ion-item>
+        </ion-list>
+      </div>
+    </ion-accordion>
+  </ion-accordion-group>
+
+</ion-content>

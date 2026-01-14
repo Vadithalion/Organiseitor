@@ -1,0 +1,53 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Inicio</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="openSettings()">
+        <ion-icon slot="icon-only" name="settings-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Inicio</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div class="container">
+    <div class="welcome-text">
+      <h1>¡Bienvenido a casa!</h1>
+      <p>Organiza tus compras de forma fácil.</p>
+    </div>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" size-md="6">
+          <ion-card button routerLink="/organiseitor/lista" class="menu-card">
+            <ion-card-header>
+              <ion-icon name="cart-outline" size="large" color="primary"></ion-icon>
+              <ion-card-title>Lista de Compra</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              Añade productos y gestiona tu compra actual.
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+
+        <ion-col size="12" size-md="6">
+          <ion-card button routerLink="/organiseitor/historial" class="menu-card">
+            <ion-card-header>
+              <ion-icon name="time-outline" size="large" color="secondary"></ion-icon>
+              <ion-card-title>Historial</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              Consulta y edita tus compras anteriores.
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

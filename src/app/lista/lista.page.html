@@ -1,0 +1,103 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="end">
+      <ion-button (click)="clearList()" [disabled]="shoppingService.items().length === 0">
+        <ion-icon slot="icon-only" name="trash-outline" class="clear-icon"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      Lista de Compra
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="page-content">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Lista de Compra</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <!-- Add Item Section -->
+  <ion-card class="add-item-card">
+    <ion-card-header>
+      <ion-card-subtitle>Añadir Nuevo Producto</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item lines="none" class="input-item">
+        <ion-input label="Producto" labelPlacement="stacked" [(ngModel)]="newItemName"
+          placeholder="ej. Leche, Pan..."></ion-input>
+      </ion-item>
+
+      <ion-grid class="ion-no-padding">
+        <ion-row>
+          <ion-col size="6">
+            <ion-item lines="none" class="input-item">
+              <ion-input label="Cantidad" labelPlacement="stacked" type="number" [(ngModel)]="newItemQuantity"
+                placeholder="1"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="6">
+            <ion-item lines="none" class="input-item">
+              <ion-input label="Precio Est. (€)" labelPlacement="stacked" type="number" [(ngModel)]="newItemPrice"
+                placeholder="0.00"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-button expand="block" (click)="addItem()" [disabled]="!newItemName" class="add-btn" color="secondary"
+        shape="round">
+        <ion-icon name="add-circle-outline" slot="start"></ion-icon>
+        Añadir a la lista
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- List Section -->
+  <div class="list-container">
+    <ion-list lines="none" style="background: transparent;">
+      <ion-item-sliding *ngFor="let item of shoppingService.items()" class="shopping-item-sliding">
+        <ion-item class="shopping-item-card">
+          <ion-checkbox slot="start" mode="ios" color="secondary" [checked]="selectedItems().includes(item.id)"
+            (ionChange)="toggleSelection(item.id)"></ion-checkbox>
+          <ion-label>
+            <h2 [class.completed-text]="selectedItems().includes(item.id)">{{ item.name }}</h2>
+            <p>Cant: <strong>{{ item.quantity }}</strong> &nbsp;|&nbsp; Est: {{ item.price | currency:'EUR' }}</p>
+          </ion-label>
+          <ion-chip slot="end" color="tertiary" outline="true">
+            <ion-icon name="cash-outline"></ion-icon>
+            <ion-label>{{ (item.price || 0) * item.quantity | currency:'EUR' }}</ion-label>
+          </ion-chip>
+        </ion-item>
+
+        <ion-item-options side="end">
+          <ion-item-option color="danger" (click)="deleteItem(item.id)">
+            <ion-icon name="trash" slot="icon-only"></ion-icon>
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="shoppingService.items().length === 0" class="empty-state">
+    <ion-icon name="basket-outline" color="medium"></ion-icon>
+    <h3>Tu lista está vacía</h3>
+    <p>¡Empieza a añadir cosas ricas!</p>
+  </div>
+
+  <!-- Checkout and Delete Buttons -->
+  <ion-fab vertical="bottom" horizontal="start" slot="fixed" *ngIf="selectedItems().length > 0">
+    <ion-fab-button (click)="deleteSelected()" color="danger" class="checkout-fab">
+      <ion-icon name="trash"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="selectedItems().length > 0">
+    <ion-fab-button (click)="checkout()" color="success" class="checkout-fab">
+      <ion-icon name="cart"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>

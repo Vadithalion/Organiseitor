@@ -1,0 +1,43 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Ajustes</ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="dismiss()">
+                <ion-icon name="close-outline"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    <div class="theme-selection">
+        <h3>Apariencia</h3>
+        <p class="subtitle">Personaliza tu experiencia visual</p>
+
+        <div class="theme-options">
+            <div class="theme-option" [class.selected]="currentTheme === 'light'" (click)="selectTheme('light')">
+                <div class="preview light-preview">
+                    <div class="preview-header"></div>
+                    <div class="preview-content">
+                        <div class="line"></div>
+                        <div class="line"></div>
+                    </div>
+                </div>
+                <span>Claro</span>
+                <ion-icon name="checkmark-circle" color="primary" *ngIf="currentTheme === 'light'"></ion-icon>
+            </div>
+
+            <div class="theme-option" [class.selected]="currentTheme === 'dark'" (click)="selectTheme('dark')">
+                <div class="preview dark-preview">
+                    <div class="preview-header"></div>
+                    <div class="preview-content">
+                        <div class="line"></div>
+                        <div class="line"></div>
+                    </div>
+                </div>
+                <span>Oscuro</span>
+                <ion-icon name="checkmark-circle" color="primary" *ngIf="currentTheme === 'dark'"></ion-icon>
+            </div>
+        </div>
+    </div>
+</ion-content>
