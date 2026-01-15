@@ -123,3 +123,35 @@ ion-content {
     font-size: 1.4rem;
     color: white;
 }
+
+.suggestions-hint {
+    text-align: center;
+    color: var(--app-text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+}
+
+.suggestions-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+}
+
+.suggestion-chip {
+    --background: var(--app-surface);
+    --color: var(--ion-color-primary);
+    border: 1px solid var(--ion-color-primary);
+    font-weight: 600;
+    transition: all 0.2s ease;
+
+    &:active {
+        transform: scale(0.9);
+        --background: var(--ion-color-primary);
+        --color: white;
+    }
+
+    ion-icon {
+        color: inherit;
+    }
+}

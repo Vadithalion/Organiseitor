@@ -25,15 +25,47 @@ export class ListaPage {
       return;
     }
 
-    this.shoppingService.addProduct(
-      this.newItemName,
-      this.newItemQuantity || 1,
-      this.newItemPrice || 0
-    );
+    const name = this.newItemName.trim();
+    const quantity = this.newItemQuantity || 1;
+    const price = this.newItemPrice || 0;
+
+    await this.checkExistenceAndAdd(name, quantity, price);
 
     this.newItemName = '';
     this.newItemQuantity = null;
     this.newItemPrice = null;
+  }
+
+  async addSuggestedProduct(name: string) {
+    await this.checkExistenceAndAdd(name, 1, 0);
+  }
+
+  private async checkExistenceAndAdd(name: string, quantity: number, price: number) {
+    const existingProduct = this.shoppingService.items().find(
+      p => p.name.toLowerCase() === name.toLowerCase()
+    );
+
+    if (existingProduct) {
+      const alert = await this.alertCtrl.create({
+        header: 'Producto duplicado',
+        message: `"${name}" ya está en tu lista. ¿Quieres añadir uno más a la cantidad actual?`,
+        buttons: [
+          {
+            text: 'Cancelar',
+            role: 'cancel'
+          },
+          {
+            text: 'Añadir 1',
+            handler: () => {
+              this.shoppingService.incrementProductQuantity(existingProduct.id, 1);
+            }
+          }
+        ]
+      });
+      await alert.present();
+    } else {
+      this.shoppingService.addProduct(name, quantity, price);
+    }
   }
 
   toggleSelection(itemId: string) {

@@ -13,6 +13,18 @@ export class ShoppingService {
     items = signal<Product[]>([]);
     history = signal<Purchase[]>([]);
 
+    // Unique list of all product names ever purchased
+    suggestedProducts = computed(() => {
+        const names = new Set<string>();
+        this.history().forEach(purchase => {
+            purchase.items.forEach(item => {
+                names.add(item.name);
+            });
+        });
+        // Sort alphabetically
+        return Array.from(names).sort();
+    });
+
     constructor() {
         this.loadFromStorage();
 
@@ -61,6 +73,12 @@ export class ShoppingService {
     toggleCompletion(id: string) {
         this.items.update(items =>
             items.map(item => item.id === id ? { ...item, completed: !item.completed } : item)
+        );
+    }
+
+    incrementProductQuantity(id: string, amount: number) {
+        this.items.update(items =>
+            items.map(item => item.id === id ? { ...item, quantity: item.quantity + amount } : item)
         );
     }
 
