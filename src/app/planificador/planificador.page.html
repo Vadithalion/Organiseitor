@@ -1,0 +1,64 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/principal" text=""></ion-back-button>
+    </ion-buttons>
+    <ion-title>Menú Semanal</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="initSchedule()">
+        <ion-icon slot="icon-only" name="refresh-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="header-banner">
+    <h1>Planifica tu semana</h1>
+    <p>Escribe tus platos y arrastra para organizar</p>
+  </div>
+
+  <div class="planner-container" cdkDropListGroup>
+    <!-- Header Row -->
+    <div class="grid-header">
+      <div class="day-col-header">Día</div>
+      <div class="type-col-header">Comida</div>
+      <div class="type-col-header">Cena</div>
+    </div>
+
+    <!-- Scrollable content -->
+    <div class="days-list">
+      <div *ngFor="let day of days; let dIdx = index" class="day-row">
+        <div class="day-label">
+          <span>{{ day.substring(0,3) }}</span>
+        </div>
+
+        <!-- Lunch Slot -->
+        <div class="slot-container lunch-slot" cdkDropList [cdkDropListData]="schedule[dIdx][0]"
+          (cdkDropListDropped)="drop($event)">
+          <div class="post-it" *ngFor="let item of schedule[dIdx][0]" cdkDrag>
+            <div class="post-it-content">
+              <textarea [(ngModel)]="item.text" placeholder="¿Qué comer?" (ngModelChange)="saveSchedule()"></textarea>
+            </div>
+            <div class="drag-handle" cdkDragHandle>
+              <ion-icon name="grid-outline"></ion-icon>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dinner Slot -->
+        <div class="slot-container dinner-slot" cdkDropList [cdkDropListData]="schedule[dIdx][1]"
+          (cdkDropListDropped)="drop($event)">
+          <div class="post-it dinner-post-it" *ngFor="let item of schedule[dIdx][1]" cdkDrag>
+            <div class="post-it-content">
+              <textarea [(ngModel)]="item.text" placeholder="¿Qué cenar?" (ngModelChange)="saveSchedule()"></textarea>
+            </div>
+            <div class="drag-handle" cdkDragHandle>
+              <ion-icon name="grid-outline"></ion-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

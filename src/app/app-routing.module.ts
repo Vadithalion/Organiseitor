@@ -14,6 +14,10 @@ const routes: Routes = [
     path: '',
     redirectTo: 'principal',
     pathMatch: 'full'
+  },
+  {
+    path: 'planificador',
+    loadChildren: () => import('./planificador/planificador.module').then( m => m.PlanificadorPageModule)
   }
 ];
 @NgModule({
