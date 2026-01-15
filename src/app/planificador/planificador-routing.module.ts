@@ -7,7 +7,11 @@ const routes: Routes = [
   {
     path: '',
     component: PlanificadorPage
+  },  {
+    path: 'historial-menues',
+    loadChildren: () => import('./historial-menues/historial-menues.module').then( m => m.HistorialMenuesPageModule)
   }
+
 ];
 
 @NgModule({
