@@ -18,36 +18,71 @@
 
   <div class="container">
     <div class="welcome-text">
-      <h1>¡Bienvenido a casa!</h1>
-      <p>Organiza tus compras de forma fácil.</p>
+      <h1>¡Hola de nuevo!</h1>
+      <p>¿Qué vamos a organizar hoy?</p>
     </div>
 
-    <ion-grid>
+    <section class="main-group">
+      <ion-card class="compact-card shopping-card">
+        <ion-card-header>
+          <div class="header-icon">
+            <ion-icon name="cart-outline"></ion-icon>
+          </div>
+          <ion-card-title>Lista de la Compra</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <div class="button-group">
+            <ion-button expand="block" routerLink="/organiseitor/lista" class="inner-button main-btn">
+              <ion-icon slot="start" name="list-outline"></ion-icon>
+              Gestionar Lista
+            </ion-button>
+            <ion-button expand="block" fill="clear" routerLink="/organiseitor/historial" class="inner-button sub-btn">
+              <ion-icon slot="start" name="time-outline"></ion-icon>
+              Ver Historial
+            </ion-button>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </section>
+
+    <div class="secondary-grid">
       <ion-row>
-        <ion-col size="12" size-md="6">
-          <ion-card button routerLink="/organiseitor/lista" class="menu-card">
+        <ion-col size="12">
+          <ion-card button class="compact-card menu-planner-card" (click)="showComingSoon()">
             <ion-card-header>
-              <ion-icon name="cart-outline" size="large" color="primary"></ion-icon>
-              <ion-card-title>Lista de Compra</ion-card-title>
+              <ion-icon name="restaurant-outline"></ion-icon>
+              <ion-card-title>Menús de la Semana</ion-card-title>
             </ion-card-header>
             <ion-card-content>
-              Añade productos y gestiona tu compra actual.
+              Planifica tus comidas y cenas.
             </ion-card-content>
           </ion-card>
         </ion-col>
-
-        <ion-col size="12" size-md="6">
-          <ion-card button routerLink="/organiseitor/historial" class="menu-card">
+        
+        <ion-col size="6">
+          <ion-card button class="compact-card coming-soon-card" (click)="showComingSoon()">
             <ion-card-header>
-              <ion-icon name="time-outline" size="large" color="secondary"></ion-icon>
-              <ion-card-title>Historial</ion-card-title>
+              <ion-icon name="pie-chart-outline"></ion-icon>
+              <ion-card-title>Balance Global</ion-card-title>
             </ion-card-header>
-            <ion-card-content>
-              Consulta y edita tus compras anteriores.
-            </ion-card-content>
+            <div class="badge-container">
+              <ion-badge color="medium">Próximamente</ion-badge>
+            </div>
+          </ion-card>
+        </ion-col>
+
+        <ion-col size="6">
+          <ion-card button class="compact-card coming-soon-card" (click)="showComingSoon()">
+            <ion-card-header>
+              <ion-icon name="home-outline"></ion-icon>
+              <ion-card-title>Gastos Casa</ion-card-title>
+            </ion-card-header>
+            <div class="badge-container">
+              <ion-badge color="medium">Próximamente</ion-badge>
+            </div>
           </ion-card>
         </ion-col>
       </ion-row>
-    </ion-grid>
+    </div>
   </div>
 </ion-content>

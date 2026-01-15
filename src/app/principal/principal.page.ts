@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 import { SettingsModalComponent } from './settings-modal.component';
 
 @Component({
@@ -9,7 +9,21 @@ import { SettingsModalComponent } from './settings-modal.component';
     standalone: false
 })
 export class PrincipalPage {
-    constructor(private modalCtrl: ModalController) { }
+    constructor(
+        private modalCtrl: ModalController,
+        private toastCtrl: ToastController
+    ) { }
+
+    async showComingSoon() {
+        const toast = await this.toastCtrl.create({
+            message: 'Esta función estará disponible próximamente 🚀',
+            duration: 2000,
+            position: 'bottom',
+            color: 'secondary',
+            cssClass: 'custom-toast'
+        });
+        await toast.present();
+    }
 
     async openSettings() {
         const modal = await this.modalCtrl.create({
