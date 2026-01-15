@@ -37,15 +37,21 @@
 
       <ion-grid class="ion-no-padding">
         <ion-row>
-          <ion-col size="6">
+          <ion-col size="4">
             <ion-item lines="none" class="input-item">
-              <ion-input label="Cantidad" labelPlacement="stacked" type="number" [(ngModel)]="newItemQuantity"
+              <ion-input label="Cant." labelPlacement="stacked" type="number" [(ngModel)]="newItemQuantity"
                 placeholder="1"></ion-input>
             </ion-item>
           </ion-col>
-          <ion-col size="6">
+          <ion-col size="4">
             <ion-item lines="none" class="input-item">
-              <ion-input label="Precio Est. (€)" labelPlacement="stacked" type="number" [(ngModel)]="newItemPrice"
+              <ion-input label="Precio (€)" labelPlacement="stacked" type="number" [(ngModel)]="newItemPrice"
+                placeholder="0.00"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="4">
+            <ion-item lines="none" class="input-item">
+              <ion-input label="Peso (kg)" labelPlacement="stacked" type="number" [(ngModel)]="newItemWeight"
                 placeholder="0.00"></ion-input>
             </ion-item>
           </ion-col>
@@ -70,6 +76,9 @@
           <ion-label>
             <h2 [class.completed-text]="selectedItems().includes(item.id)">{{ item.name }}</h2>
             <p>Cant: <strong>{{ item.quantity }}</strong> &nbsp;|&nbsp; Est: {{ item.price | currency:'EUR' }}</p>
+            <p class="unit-price" *ngIf="item.weight && item.weight > 0">
+              {{ (item.price || 0) / item.weight | currency:'EUR' }}/kg
+            </p>
           </ion-label>
           <ion-chip slot="end" color="tertiary" outline="true">
             <ion-icon name="cash-outline"></ion-icon>

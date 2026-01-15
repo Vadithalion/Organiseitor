@@ -54,6 +54,14 @@ ion-content {
 
     p {
         color: var(--app-text-secondary);
+        font-size: 0.85rem;
+    }
+
+    .unit-price {
+        font-size: 0.75rem;
+        color: var(--app-text-secondary);
+        opacity: 0.7;
+        margin-top: 2px;
     }
 }
 
@@ -68,4 +76,38 @@ ion-content {
     margin-left: 8px;
     color: var(--ion-color-primary);
     opacity: 0.7;
+}
+
+.edit-modal-content {
+    --background: var(--app-background);
+}
+
+.edit-form {
+    padding-top: 10px;
+
+    .save-btn {
+        margin-top: 32px;
+        height: 52px;
+        font-weight: 700;
+        --box-shadow: 0 4px 12px rgba(var(--ion-color-success-rgb), 0.3);
+    }
+}
+
+.edit-input-item {
+    --background: var(--app-surface);
+    border-radius: 12px;
+    margin-bottom: 16px;
+    border: 1px solid var(--app-input-border);
+    --padding-start: 16px;
+
+    ion-label {
+        font-weight: 600;
+        color: var(--ion-color-primary) !important;
+        margin-bottom: 8px;
+    }
+
+    ion-input {
+        font-weight: 500;
+        --color: var(--app-text-main);
+    }
 }

@@ -48,10 +48,13 @@
       <div class="ion-padding content-wrapper" slot="content">
         <ion-list lines="none">
           <ion-item *ngFor="let item of purchase.items" button class="history-item"
-            (click)="editPrice(purchase.id, item.id, item.price || 0)">
+            (click)="openEditModal(purchase.id, item)">
             <ion-label>
               <h3>{{ item.name }}</h3>
-              <p>Cant: {{ item.quantity }}</p>
+              <p>Cant: {{ item.quantity }} &nbsp;|&nbsp; {{ item.price | currency:'EUR' }}</p>
+              <p class="unit-price" *ngIf="item.weight && item.weight > 0">
+                {{ (item.price || 0) / item.weight | currency:'EUR' }}/kg
+              </p>
             </ion-label>
             <ion-note slot="end" class="price-note">
               {{ (item.price || 0) * item.quantity | currency:'EUR' }}
@@ -62,5 +65,43 @@
       </div>
     </ion-accordion>
   </ion-accordion-group>
+
+  <!-- Edit Modal -->
+  <ion-modal [isOpen]="isEditModalOpen" (didDismiss)="isEditModalOpen = false" [initialBreakpoint]="0.5"
+    [breakpoints]="[0, 0.5, 0.75]">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar color="primary">
+          <ion-title>Editar {{ editingItemName }}</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="closeEditModal()">Cerrar</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding edit-modal-content">
+        <div class="edit-form">
+          <ion-item class="edit-input-item">
+            <ion-label position="stacked">Precio (€)</ion-label>
+            <ion-input type="number" [(ngModel)]="editPrice" placeholder="0.00"></ion-input>
+          </ion-item>
+
+          <ion-item class="edit-input-item">
+            <ion-label position="stacked">Peso (kg)</ion-label>
+            <ion-input type="number" [(ngModel)]="editWeight" placeholder="0.00"></ion-input>
+          </ion-item>
+
+          <ion-item class="edit-input-item">
+            <ion-label position="stacked">Cantidad</ion-label>
+            <ion-input type="number" [(ngModel)]="editQuantity" placeholder="1"></ion-input>
+          </ion-item>
+
+          <ion-button expand="block" (click)="saveEdit()" class="save-btn" color="success" shape="round">
+            <ion-icon name="save-outline" slot="start"></ion-icon>
+            Guardar Cambios
+          </ion-button>
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
 
 </ion-content>

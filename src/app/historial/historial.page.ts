@@ -18,6 +18,15 @@ export class HistorialPage {
   isSelectionMode = false;
   selectedPurchaseIds: string[] = [];
 
+  // Edit Modal State
+  isEditModalOpen = false;
+  editingPurchaseId = '';
+  editingItemId = '';
+  editPrice = 0;
+  editWeight = 0;
+  editQuantity = 0;
+  editingItemName = '';
+
   toggleSelectionMode() {
     this.isSelectionMode = !this.isSelectionMode;
     this.selectedPurchaseIds = [];
@@ -57,37 +66,30 @@ export class HistorialPage {
     await alert.present();
   }
 
-  async editPrice(purchaseId: string, itemId: string, currentPrice: number) {
-    const alert = await this.alertCtrl.create({
-      header: 'Editar Precio',
-      inputs: [
-        {
-          name: 'price',
-          type: 'number',
-          placeholder: 'Precio',
-          value: currentPrice,
-          attributes: {
-            step: '0.01'
-          }
-        }
-      ],
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel'
-        },
-        {
-          text: 'Guardar',
-          handler: (data) => {
-            const priceStr = data.price ? data.price.toString().replace(',', '.') : '0';
-            const newPrice = parseFloat(priceStr);
-            if (!isNaN(newPrice)) {
-              this.shoppingService.updateHistoryItemPrice(purchaseId, itemId, newPrice);
-            }
-          }
-        }
-      ]
-    });
-    await alert.present();
+  openEditModal(purchaseId: string, item: any) {
+    this.editingPurchaseId = purchaseId;
+    this.editingItemId = item.id;
+    this.editingItemName = item.name;
+    this.editPrice = item.price || 0;
+    this.editWeight = item.weight || 0;
+    this.editQuantity = item.quantity;
+    this.isEditModalOpen = true;
+  }
+
+  closeEditModal() {
+    this.isEditModalOpen = false;
+  }
+
+  saveEdit() {
+    if (this.editingPurchaseId && this.editingItemId) {
+      this.shoppingService.updateHistoryItem(
+        this.editingPurchaseId,
+        this.editingItemId,
+        this.editPrice,
+        this.editWeight,
+        this.editQuantity
+      );
+    }
+    this.closeEditModal();
   }
 }

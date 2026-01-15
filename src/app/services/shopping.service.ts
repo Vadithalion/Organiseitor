@@ -51,12 +51,13 @@ export class ShoppingService {
         localStorage.setItem(this.STORAGE_KEY_HISTORY, JSON.stringify(this.history()));
     }
 
-    addProduct(name: string, quantity: number, price: number = 0) {
+    addProduct(name: string, quantity: number, price: number = 0, weight: number = 0) {
         const newItem: Product = {
             id: crypto.randomUUID(),
             name,
             quantity,
             price,
+            weight,
             completed: false
         };
         this.items.update(items => [...items, newItem]);
@@ -110,12 +111,12 @@ export class ShoppingService {
         this.items.set([]);
     }
 
-    updateHistoryItemPrice(purchaseId: string, itemId: string, newPrice: number) {
+    updateHistoryItem(purchaseId: string, itemId: string, newPrice: number, newWeight: number, newQuantity: number) {
         this.history.update(history =>
             history.map(purchase => {
                 if (purchase.id === purchaseId) {
                     const updatedItems = purchase.items.map(item =>
-                        item.id === itemId ? { ...item, price: newPrice } : item
+                        item.id === itemId ? { ...item, price: newPrice, weight: newWeight, quantity: newQuantity } : item
                     );
                     const newTotal = updatedItems.reduce((acc, item) => acc + (item.price || 0) * item.quantity, 0);
                     return { ...purchase, items: updatedItems, total: newTotal };

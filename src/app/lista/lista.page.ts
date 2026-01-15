@@ -12,6 +12,7 @@ export class ListaPage {
   newItemName = '';
   newItemQuantity: number | null = null;
   newItemPrice: number | null = null;
+  newItemWeight: number | null = null;
 
   selectedItems = signal<string[]>([]);
 
@@ -28,19 +29,21 @@ export class ListaPage {
     const name = this.newItemName.trim();
     const quantity = this.newItemQuantity || 1;
     const price = this.newItemPrice || 0;
+    const weight = this.newItemWeight || 0;
 
-    await this.checkExistenceAndAdd(name, quantity, price);
+    await this.checkExistenceAndAdd(name, quantity, price, weight);
 
     this.newItemName = '';
     this.newItemQuantity = null;
     this.newItemPrice = null;
+    this.newItemWeight = null;
   }
 
   async addSuggestedProduct(name: string) {
-    await this.checkExistenceAndAdd(name, 1, 0);
+    await this.checkExistenceAndAdd(name, 1, 0, 0);
   }
 
-  private async checkExistenceAndAdd(name: string, quantity: number, price: number) {
+  private async checkExistenceAndAdd(name: string, quantity: number, price: number, weight: number) {
     const existingProduct = this.shoppingService.items().find(
       p => p.name.toLowerCase() === name.toLowerCase()
     );
@@ -64,7 +67,7 @@ export class ListaPage {
       });
       await alert.present();
     } else {
-      this.shoppingService.addProduct(name, quantity, price);
+      this.shoppingService.addProduct(name, quantity, price, weight);
     }
   }
 
