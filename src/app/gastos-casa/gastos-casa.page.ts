@@ -1,6 +1,6 @@
 import { Component, computed, signal } from '@angular/core';
 import { GastosService } from '../services/gastos.service';
-import { Gasto } from '../models/gasto.model';
+import { Movimiento } from '../models/movimiento.model';
 
 @Component({
   selector: 'app-gastos-casa',
@@ -9,49 +9,54 @@ import { Gasto } from '../models/gasto.model';
   standalone: false
 })
 export class GastosCasaPage {
+  // Navigation
+  selectedTab = signal<'gastos' | 'ingresos'>('gastos');
+
   // Filter signals
   filterCategory = signal<string>('');
   filterDate = signal<string>('');
 
-  // Add Gasto Form State
+  // Add Item Form State
   isModalOpen = false;
-  newGasto = {
+  newItem = {
     descripcion: '',
     categoria: '',
     cantidad: null as number | null,
     fecha: new Date().toISOString().split('T')[0]
   };
 
-  // Combined and filtered gastos
-  filteredGastos = computed(() => {
-    let gastos = this.gastosService.allGastos();
+  // Combined and filtered movements
+  filteredItems = computed(() => {
+    const tab = this.selectedTab();
+    let items = tab === 'gastos' ? this.gastosService.gastos() : this.gastosService.ingresos();
+
     const cat = this.normalize(this.filterCategory().trim());
     const date = this.filterDate();
 
     if (cat) {
-      gastos = gastos.filter(g => this.normalize(g.categoria).includes(cat));
+      items = items.filter(g => this.normalize(g.categoria).includes(cat));
     }
 
     if (date) {
-      gastos = gastos.filter(g => {
+      items = items.filter(g => {
         const itemDate = new Date(g.fecha).toISOString().split('T')[0];
         return itemDate === date;
       });
     }
 
-    return gastos;
+    return items;
   });
 
-  // Total of currently visible gastos
-  totalGasto = computed(() => {
-    return this.filteredGastos().reduce((acc, g) => acc + g.cantidad, 0);
+  // Total of currently visible items
+  totalAmount = computed(() => {
+    return this.filteredItems().reduce((acc, g) => acc + g.cantidad, 0);
   });
 
   // Dynamic Title
   summaryTitle = computed(() => {
-    return (this.filterCategory() || this.filterDate())
-      ? 'Total gastos de la búsqueda'
-      : 'Total gastos';
+    const isSearch = this.filterCategory() || this.filterDate();
+    const type = this.selectedTab() === 'gastos' ? 'gastos' : 'ingresos';
+    return isSearch ? `Total ${type} de la búsqueda` : `Total ${type}`;
   });
 
   constructor(public gastosService: GastosService) { }
@@ -74,8 +79,13 @@ export class GastosCasaPage {
     this.filterDate.set('');
   }
 
+  setTab(tab: any) {
+    this.selectedTab.set(tab.detail.value);
+    this.clearFilters();
+  }
+
   openAddModal() {
-    this.newGasto = {
+    this.newItem = {
       descripcion: '',
       categoria: '',
       cantidad: null,
@@ -88,15 +98,21 @@ export class GastosCasaPage {
     this.isModalOpen = false;
   }
 
-  saveGasto() {
-    if (this.newGasto.descripcion && this.newGasto.categoria && this.newGasto.cantidad !== null) {
-      this.gastosService.addGasto(
-        this.newGasto.descripcion,
-        this.newGasto.categoria,
-        this.newGasto.cantidad,
-        new Date(this.newGasto.fecha)
+  saveItem() {
+    if (this.newItem.descripcion && this.newItem.categoria && this.newItem.cantidad !== null) {
+      const tipo: 'gasto' | 'ingreso' = this.selectedTab() === 'gastos' ? 'gasto' : 'ingreso';
+      this.gastosService.addMovimiento(
+        this.newItem.descripcion,
+        this.newItem.categoria,
+        this.newItem.cantidad,
+        tipo,
+        new Date(this.newItem.fecha)
       );
       this.closeModal();
     }
+  }
+
+  async deleteItem(id: string) {
+    this.gastosService.removeMovimiento(id);
   }
 }

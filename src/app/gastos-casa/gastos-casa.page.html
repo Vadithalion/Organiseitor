@@ -3,20 +3,30 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/principal"></ion-back-button>
     </ion-buttons>
-    <ion-title>Gastos Casa</ion-title>
+    <ion-title>Balance Casa</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="openAddModal()">
         <ion-icon slot="icon-only" name="add-circle-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
+  <ion-toolbar color="primary">
+    <ion-segment [value]="selectedTab()" (ionChange)="setTab($event)" mode="md">
+      <ion-segment-button value="gastos">
+        <ion-label>Gastos</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="ingresos">
+        <ion-label>Ingresos</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" class="ion-padding page-content">
-  <div class="summary-card">
+  <div class="summary-card" [class.income-summary]="selectedTab() === 'ingresos'">
     <div class="summary-content">
       <ion-text color="medium">{{ summaryTitle() }}</ion-text>
-      <h1>{{ totalGasto() | currency:'EUR' }}</h1>
+      <h1>{{ totalAmount() | currency:'EUR' }}</h1>
     </div>
   </div>
 
@@ -25,8 +35,7 @@
       <ion-col size="6">
         <ion-item class="filter-item" lines="none">
           <ion-label position="stacked">Categoría</ion-label>
-          <ion-input [value]="filterCategory()" placeholder="Ej: Alimentación"
-            (ionInput)="updateCategory($event)"></ion-input>
+          <ion-input [value]="filterCategory()" placeholder="Buscar..." (ionInput)="updateCategory($event)"></ion-input>
         </ion-item>
       </ion-col>
       <ion-col size="6">
@@ -43,34 +52,51 @@
   </div>
 
   <div class="table-container">
-    <table class="gastos-table">
-      <thead>
-        <tr>
-          <th>Fecha</th>
-          <th>Descripción</th>
-          <th>Categoría</th>
-          <th class="ion-text-right">Cantidad</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let gasto of filteredGastos()">
-          <td>{{ gasto.fecha | date:'dd/MM/yy' }}</td>
-          <td>{{ gasto.descripcion }}</td>
-          <td>
-            <ion-badge color="secondary" outline="true">{{ gasto.categoria }}</ion-badge>
-          </td>
-          <td class="ion-text-right price-col">{{ gasto.cantidad | currency:'EUR' }}</td>
-        </tr>
-        <tr *ngIf="filteredGastos().length === 0">
-          <td colspan="4" class="empty-msg">No se han encontrado gastos</td>
-        </tr>
-      </tbody>
-    </table>
+    <ion-list lines="none" style="background: transparent; padding: 0;">
+      <!-- Table Header -->
+      <div class="table-header">
+        <ion-row>
+          <ion-col size="3">Fecha</ion-col>
+          <ion-col size="4">Desc.</ion-col>
+          <ion-col size="2">Cat.</ion-col>
+          <ion-col size="3" class="ion-text-right">Cant.</ion-col>
+        </ion-row>
+      </div>
+
+      <ion-item-sliding *ngFor="let item of filteredItems()">
+        <ion-item class="table-row-item">
+          <ion-row style="width: 100%; align-items: center; font-size: 0.85rem;">
+            <ion-col size="3">{{ item.fecha | date:'dd/MM' }}</ion-col>
+            <ion-col size="4" class="ion-text-nowrap" style="overflow: hidden; text-overflow: ellipsis;">
+              {{ item.descripcion }}
+            </ion-col>
+            <ion-col size="2">
+              <ion-badge [color]="selectedTab() === 'gastos' ? 'secondary' : 'success'" mode="ios"
+                style="font-size: 0.6rem;">
+                {{ item.categoria.substring(0,3) }}
+              </ion-badge>
+            </ion-col>
+            <ion-col size="3" class="ion-text-right price-col" [class.income-text]="selectedTab() === 'ingresos'">
+              {{ item.cantidad | currency:'EUR' }}
+            </ion-col>
+          </ion-row>
+        </ion-item>
+        <ion-item-options side="end">
+          <ion-item-option color="danger" (click)="deleteItem(item.id)">
+            <ion-icon name="trash" slot="icon-only"></ion-icon>
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+
+      <div *ngIf="filteredItems().length === 0" class="empty-msg">
+        No se han encontrado {{ selectedTab() }}
+      </div>
+    </ion-list>
   </div>
 
-  <!-- Add Gasto FAB -->
+  <!-- Add Item FAB -->
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="openAddModal()" color="primary">
+    <ion-fab-button (click)="openAddModal()" [color]="selectedTab() === 'gastos' ? 'primary' : 'success'">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
@@ -80,8 +106,8 @@
     [breakpoints]="[0, 0.7, 0.95]">
     <ng-template>
       <ion-header>
-        <ion-toolbar color="primary">
-          <ion-title>Añadir Gasto</ion-title>
+        <ion-toolbar [color]="selectedTab() === 'gastos' ? 'primary' : 'success'">
+          <ion-title>Añadir {{ selectedTab() === 'gastos' ? 'Gasto' : 'Ingreso' }}</ion-title>
           <ion-buttons slot="end">
             <ion-button (click)="closeModal()">Cancelar</ion-button>
           </ion-buttons>
@@ -90,34 +116,34 @@
       <ion-content class="ion-padding modal-content">
         <div class="add-form">
           <ion-item class="edit-input-item">
-            <ion-label position="stacked">Descripción del Gasto</ion-label>
-            <ion-input [(ngModel)]="newGasto.descripcion" placeholder="Ej: Factura de la luz"></ion-input>
+            <ion-label position="stacked">Descripción</ion-label>
+            <ion-input [(ngModel)]="newItem.descripcion" placeholder="Ej: Nómina, Alquiler..."></ion-input>
           </ion-item>
 
           <ion-item class="edit-input-item">
             <ion-label position="stacked">Categoría</ion-label>
-            <ion-input [(ngModel)]="newGasto.categoria" placeholder="Ej: Hogar, Alimentación..."></ion-input>
+            <ion-input [(ngModel)]="newItem.categoria" placeholder="Ej: Trabajo, Otros..."></ion-input>
           </ion-item>
 
           <ion-row>
             <ion-col size="6">
               <ion-item class="edit-input-item">
                 <ion-label position="stacked">Cantidad (€)</ion-label>
-                <ion-input type="number" [(ngModel)]="newGasto.cantidad" placeholder="0.00"></ion-input>
+                <ion-input type="number" [(ngModel)]="newItem.cantidad" placeholder="0.00"></ion-input>
               </ion-item>
             </ion-col>
             <ion-col size="6">
               <ion-item class="edit-input-item">
                 <ion-label position="stacked">Fecha</ion-label>
-                <ion-input type="date" [(ngModel)]="newGasto.fecha"></ion-input>
+                <ion-input type="date" [(ngModel)]="newItem.fecha"></ion-input>
               </ion-item>
             </ion-col>
           </ion-row>
 
-          <ion-button expand="block" (click)="saveGasto()" class="save-btn ion-margin-top" color="success" shape="round"
-            [disabled]="!newGasto.descripcion || !newGasto.categoria || !newGasto.cantidad">
+          <ion-button expand="block" (click)="saveItem()" class="save-btn ion-margin-top" color="success" shape="round"
+            [disabled]="!newItem.descripcion || !newItem.categoria || !newItem.cantidad">
             <ion-icon name="save-outline" slot="start"></ion-icon>
-            Guardar Gasto
+            Guardar {{ selectedTab() === 'gastos' ? 'Gasto' : 'Ingreso' }}
           </ion-button>
         </div>
       </ion-content>
