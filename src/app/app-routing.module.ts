@@ -18,7 +18,11 @@ const routes: Routes = [
   {
     path: 'planificador',
     loadChildren: () => import('./planificador/planificador.module').then( m => m.PlanificadorPageModule)
+  },  {
+    path: 'gastos-casa',
+    loadChildren: () => import('./gastos-casa/gastos-casa.module').then( m => m.GastosCasaPageModule)
   }
+
 ];
 @NgModule({
   imports: [
