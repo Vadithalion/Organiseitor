@@ -83,11 +83,29 @@ export class ListaPage {
     this.closeEditModal();
   }
 
-  async addSuggestedProduct(name: string) {
-    await this.checkExistenceAndAdd(name, 1, 0, 0);
+  async addSuggestedProduct(product: any) {
+    await this.checkExistenceAndAdd(
+      product.name,
+      product.quantity || 1,
+      product.price || 0,
+      product.weight || 0,
+      product.isFavorite || false
+    );
   }
 
-  private async checkExistenceAndAdd(name: string, quantity: number, price: number, weight: number) {
+  toggleFavorite(event: Event, itemId: string) {
+    event.stopPropagation();
+    this.shoppingService.toggleFavorite(itemId);
+  }
+
+  toggleSuggestionFavorite(event: Event, name: string | undefined, currentStatus: boolean | undefined) {
+    event.stopPropagation();
+    if (name) {
+      this.shoppingService.updateGlobalFavorite(name, !currentStatus);
+    }
+  }
+
+  private async checkExistenceAndAdd(name: string, quantity: number, price: number, weight: number, isFavorite: boolean = false) {
     const existingProduct = this.shoppingService.items().find(
       p => p.name.toLowerCase() === name.toLowerCase()
     );
@@ -111,7 +129,7 @@ export class ListaPage {
       });
       await alert.present();
     } else {
-      this.shoppingService.addProduct(name, quantity, price, weight);
+      this.shoppingService.addProduct(name, quantity, price, weight, isFavorite);
     }
   }
 

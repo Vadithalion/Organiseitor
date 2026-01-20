@@ -92,4 +92,10 @@ export class HistorialPage {
     }
     this.closeEditModal();
   }
+
+  toggleFavorite(event: Event, name: string) {
+    event.stopPropagation();
+    const isCurrentlyFavorite = this.shoppingService.favoriteProductNames().includes(name);
+    this.shoppingService.updateGlobalFavorite(name, !isCurrentlyFavorite);
+  }
 }

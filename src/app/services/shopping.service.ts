@@ -8,21 +8,49 @@ import { Purchase } from '../models/purchase.model';
 export class ShoppingService {
     private readonly STORAGE_KEY_ITEMS = 'shopping_items';
     private readonly STORAGE_KEY_HISTORY = 'shopping_history';
+    private readonly STORAGE_KEY_FAVORITES = 'shopping_favorites';
 
     // Signals
     items = signal<Product[]>([]);
     history = signal<Purchase[]>([]);
+    favoriteProductNames = signal<string[]>([]);
 
-    // Unique list of all product names ever purchased
+    // List of products with details from history, favorites first
     suggestedProducts = computed(() => {
-        const names = new Set<string>();
+        const productMap = new Map<string, {
+            name: string;
+            price: number;
+            weight: number;
+            quantity: number;
+            isFavorite: boolean;
+        }>();
+        const favorites = this.favoriteProductNames();
+
         this.history().forEach(purchase => {
             purchase.items.forEach(item => {
-                names.add(item.name);
+                const nameKey = item.name.toLowerCase();
+                if (!productMap.has(nameKey)) {
+                    productMap.set(nameKey, {
+                        name: item.name,
+                        price: item.price || 0,
+                        weight: item.weight || 0,
+                        quantity: item.quantity || 1,
+                        isFavorite: favorites.includes(item.name)
+                    });
+                }
             });
         });
-        // Sort alphabetically
-        return Array.from(names).sort();
+
+        // Convert map values to array
+        let products = Array.from(productMap.values());
+
+        // Sort: Favorites first, then alphabetical
+        return products.sort((a, b) => {
+            const aFav = a.isFavorite ? 1 : 0;
+            const bFav = b.isFavorite ? 1 : 0;
+            if (aFav !== bFav) return bFav - aFav;
+            return a.name.localeCompare(b.name);
+        });
     });
 
     constructor() {
@@ -44,23 +72,33 @@ export class ShoppingService {
         if (storedHistory) {
             this.history.set(JSON.parse(storedHistory));
         }
+
+        const storedFavorites = localStorage.getItem(this.STORAGE_KEY_FAVORITES);
+        if (storedFavorites) {
+            this.favoriteProductNames.set(JSON.parse(storedFavorites));
+        }
     }
 
     private saveToStorage() {
         localStorage.setItem(this.STORAGE_KEY_ITEMS, JSON.stringify(this.items()));
         localStorage.setItem(this.STORAGE_KEY_HISTORY, JSON.stringify(this.history()));
+        localStorage.setItem(this.STORAGE_KEY_FAVORITES, JSON.stringify(this.favoriteProductNames()));
     }
 
-    addProduct(name: string, quantity: number, price: number = 0, weight: number = 0) {
+    addProduct(name: string, quantity: number, price: number = 0, weight: number = 0, isFavorite: boolean = false) {
         const newItem: Product = {
             id: crypto.randomUUID(),
             name,
             quantity,
             price,
             weight,
-            completed: false
+            completed: false,
+            isFavorite: isFavorite || this.favoriteProductNames().includes(name)
         };
         this.items.update(items => [...items, newItem]);
+        if (isFavorite) {
+            this.updateGlobalFavorite(name, true);
+        }
     }
 
     removeProduct(id: string) {
@@ -136,5 +174,29 @@ export class ShoppingService {
 
     removePurchases(purchaseIds: string[]) {
         this.history.update(history => history.filter(p => !purchaseIds.includes(p.id)));
+    }
+
+    toggleFavorite(id: string) {
+        this.items.update(items =>
+            items.map(item => {
+                if (item.id === id) {
+                    const newStatus = !item.isFavorite;
+                    this.updateGlobalFavorite(item.name, newStatus);
+                    return { ...item, isFavorite: newStatus };
+                }
+                return item;
+            })
+        );
+    }
+
+    updateGlobalFavorite(name: string, status: boolean) {
+        this.favoriteProductNames.update(prefs => {
+            if (status) {
+                if (!prefs.includes(name)) return [...prefs, name];
+            } else {
+                return prefs.filter(n => n !== name);
+            }
+            return prefs;
+        });
     }
 }

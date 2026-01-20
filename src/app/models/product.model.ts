@@ -5,4 +5,5 @@ export interface Product {
   price?: number;
   weight?: number;
   completed: boolean;
+  isFavorite?: boolean;
 }

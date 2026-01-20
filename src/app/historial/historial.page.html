@@ -58,7 +58,10 @@
             </ion-label>
             <ion-note slot="end" class="price-note">
               {{ (item.price || 0) * item.quantity | currency:'EUR' }}
-              <ion-icon name="create-outline" size="small" class="edit-icon"></ion-icon>
+              <ion-icon class="edit-icon"
+                [name]="shoppingService.favoriteProductNames().includes(item.name) ? 'heart' : 'heart-outline'"
+                [color]="shoppingService.favoriteProductNames().includes(item.name) ? 'danger' : 'medium'"
+                (click)="toggleFavorite($event, item.name)"></ion-icon>
             </ion-note>
           </ion-item>
         </ion-list>
