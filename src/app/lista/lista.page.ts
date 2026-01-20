@@ -14,6 +14,16 @@ export class ListaPage {
   newItemPrice: number | null = null;
   newItemWeight: number | null = null;
 
+  isAddModalOpen = false;
+
+  // Edit Modal State
+  isEditModalOpen = false;
+  editingItemId = '';
+  editPrice = 0;
+  editWeight = 0;
+  editQuantity = 0;
+  editingItemName = '';
+
   selectedItems = signal<string[]>([]);
 
   constructor(
@@ -37,6 +47,40 @@ export class ListaPage {
     this.newItemQuantity = null;
     this.newItemPrice = null;
     this.newItemWeight = null;
+    this.isAddModalOpen = false;
+  }
+
+  openAddModal() {
+    this.isAddModalOpen = true;
+  }
+
+  closeAddModal() {
+    this.isAddModalOpen = false;
+  }
+
+  openEditModal(item: any) {
+    this.editingItemId = item.id;
+    this.editingItemName = item.name;
+    this.editPrice = item.price || 0;
+    this.editWeight = item.weight || 0;
+    this.editQuantity = item.quantity;
+    this.isEditModalOpen = true;
+  }
+
+  closeEditModal() {
+    this.isEditModalOpen = false;
+  }
+
+  saveEdit() {
+    if (this.editingItemId) {
+      this.shoppingService.updateProduct(
+        this.editingItemId,
+        this.editPrice,
+        this.editWeight,
+        this.editQuantity
+      );
+    }
+    this.closeEditModal();
   }
 
   async addSuggestedProduct(name: string) {

@@ -126,6 +126,14 @@ export class ShoppingService {
         );
     }
 
+    updateProduct(id: string, newPrice: number, newWeight: number, newQuantity: number) {
+        this.items.update(items =>
+            items.map(item =>
+                item.id === id ? { ...item, price: newPrice, weight: newWeight, quantity: newQuantity } : item
+            )
+        );
+    }
+
     removePurchases(purchaseIds: string[]) {
         this.history.update(history => history.filter(p => !purchaseIds.includes(p.id)));
     }
