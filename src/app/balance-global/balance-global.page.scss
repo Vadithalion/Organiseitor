@@ -1,0 +1,153 @@
+.alternate-bg {
+    --background: #f8fafd;
+}
+
+.balance-container {
+    padding: 8px;
+}
+
+.main-total-card {
+    background: white;
+    padding: 40px 24px;
+    border-radius: 28px;
+    text-align: center;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.06);
+    margin-bottom: 24px;
+    border: 1px solid rgba(var(--ion-color-primary-rgb), 0.05);
+    background: linear-gradient(180deg, #ffffff 0%, #fdfdff 100%);
+
+    ion-text {
+        font-weight: 700;
+        letter-spacing: 1px;
+    }
+
+    h1 {
+        margin: 16px 0 0;
+        font-size: 3.5rem;
+        font-weight: 900;
+        color: var(--ion-color-success);
+        letter-spacing: -2px;
+        text-shadow: 0 2px 4px rgba(var(--ion-color-success-rgb), 0.1);
+    }
+
+    &.negative h1 {
+        color: var(--ion-color-danger);
+        text-shadow: 0 2px 4px rgba(var(--ion-color-danger-rgb), 0.1);
+    }
+}
+
+.summary-row {
+    margin: 0 -8px 24px;
+}
+
+.summary-box {
+    background: white;
+    padding: 16px;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+    border: 1px solid rgba(0, 0, 0, 0.01);
+
+    ion-icon {
+        font-size: 2.2rem;
+    }
+
+    .labels {
+        display: flex;
+        flex-direction: column;
+
+        .box-title {
+            font-size: 0.75rem;
+            color: var(--ion-color-medium);
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .box-amount {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--app-text-main);
+        }
+    }
+
+    &.income {
+        ion-icon {
+            color: var(--ion-color-success);
+        }
+    }
+
+    &.expense {
+        ion-icon {
+            color: var(--ion-color-danger);
+        }
+    }
+}
+
+.section-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin: 0 0 16px 8px;
+    color: var(--app-text-main);
+}
+
+.transparent-list {
+    background: transparent;
+}
+
+.movement-item {
+    --background: white;
+    --padding-start: 12px;
+    --padding-end: 12px;
+    border-radius: 16px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+
+    h2 {
+        font-weight: 600;
+        font-size: 1rem;
+    }
+
+    p {
+        font-size: 0.85rem;
+    }
+
+    .amount-text {
+        font-weight: 700;
+        font-size: 1rem;
+    }
+}
+
+.type-indicator {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(var(--ion-color-danger-rgb), 0.1);
+    color: var(--ion-color-danger);
+
+    &.is-income {
+        background: rgba(var(--ion-color-success-rgb), 0.1);
+        color: var(--ion-color-success);
+    }
+
+    ion-icon {
+        font-size: 1.2rem;
+    }
+}
+
+.empty-state {
+    text-align: center;
+    padding: 48px 0;
+    color: var(--ion-color-medium);
+
+    ion-icon {
+        font-size: 4rem;
+        opacity: 0.2;
+        margin-bottom: 16px;
+    }
+}

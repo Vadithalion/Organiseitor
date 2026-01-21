@@ -1,0 +1,61 @@
+<ion-header [translucent]="true">
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/principal"></ion-back-button>
+        </ion-buttons>
+        <ion-title>Balance Global</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding alternate-bg">
+    <div class="balance-container">
+        <div class="main-total-card" [class.negative]="balance().total < 0">
+            <ion-text color="medium">Resultado Neto</ion-text>
+            <h1 class="total-amount">{{ balance().total | currency:'EUR' }}</h1>
+        </div>
+
+        <ion-row class="summary-row">
+            <ion-col size="6">
+                <div class="summary-box income">
+                    <ion-icon name="arrow-up-circle-outline"></ion-icon>
+                    <div class="labels">
+                        <span class="box-title">Ingresos</span>
+                        <span class="box-amount">{{ balance().ingresos | currency:'EUR' }}</span>
+                    </div>
+                </div>
+            </ion-col>
+            <ion-col size="6">
+                <div class="summary-box expense">
+                    <ion-icon name="arrow-down-circle-outline"></ion-icon>
+                    <div class="labels">
+                        <span class="box-title">Gastos</span>
+                        <span class="box-amount">{{ balance().gastos | currency:'EUR' }}</span>
+                    </div>
+                </div>
+            </ion-col>
+        </ion-row>
+
+        <div class="movements-sections">
+            <h3 class="section-title">Últimos movimientos</h3>
+            <ion-list lines="none" class="transparent-list">
+                <ion-item *ngFor="let m of balance().movements" class="movement-item">
+                    <div slot="start" class="type-indicator" [class.is-income]="m.tipo === 'ingreso'">
+                        <ion-icon [name]="m.tipo === 'ingreso' ? 'add' : 'remove'"></ion-icon>
+                    </div>
+                    <ion-label>
+                        <h2>{{ m.descripcion }}</h2>
+                        <p>{{ m.categoria }} • {{ m.fecha | date:'dd/MM/yyyy' }}</p>
+                    </ion-label>
+                    <ion-text slot="end" [color]="m.tipo === 'ingreso' ? 'success' : 'danger'" class="amount-text">
+                        {{ m.tipo === 'ingreso' ? '+' : '-' }}{{ m.cantidad | currency:'EUR' }}
+                    </ion-text>
+                </ion-item>
+
+                <div *ngIf="balance().movements.length === 0" class="empty-state">
+                    <ion-icon name="receipt-outline"></ion-icon>
+                    <p>No hay movimientos registrados</p>
+                </div>
+            </ion-list>
+        </div>
+    </div>
+</ion-content>

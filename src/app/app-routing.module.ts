@@ -11,19 +11,24 @@ const routes: Routes = [
     loadChildren: () => import('./organiseitor/organiseitor.module').then(m => m.OrganiseitorPageModule)
   },
   {
+    path: 'planificador',
+    loadChildren: () => import('./planificador/planificador.module').then(m => m.PlanificadorPageModule)
+  },
+  {
+    path: 'gastos-casa',
+    loadChildren: () => import('./gastos-casa/gastos-casa.module').then(m => m.GastosCasaPageModule)
+  },
+  {
+    path: 'balance-global',
+    loadChildren: () => import('./balance-global/balance-global.module').then(m => m.BalanceGlobalPageModule)
+  },
+  {
     path: '',
     redirectTo: 'principal',
     pathMatch: 'full'
-  },
-  {
-    path: 'planificador',
-    loadChildren: () => import('./planificador/planificador.module').then( m => m.PlanificadorPageModule)
-  },  {
-    path: 'gastos-casa',
-    loadChildren: () => import('./gastos-casa/gastos-casa.module').then( m => m.GastosCasaPageModule)
   }
-
 ];
+
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
