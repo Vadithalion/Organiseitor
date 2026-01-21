@@ -38,6 +38,13 @@
 
     --ion-background-color: var(--app-background);
     --ion-text-color: var(--app-text-main);
+
+    /* Planner Themes (Classic Light) */
+    --planner-lunch-bg: linear-gradient(135deg, #FFEFBA, #FFFFFF);
+    --planner-lunch-border: rgba(220, 200, 150, 0.4);
+    --planner-dinner-bg: linear-gradient(135deg, #E2F9B8, #FFFFFF);
+    --planner-dinner-border: rgba(180, 220, 150, 0.4);
+    --postit-text: #2D3436;
 }
 
 /* CLASSIC DARK */
@@ -51,9 +58,14 @@ body.dark {
 
     --ion-background-color: var(--app-background);
     --ion-text-color: var(--app-text-main);
-    --ion-toolbar-background: var(--app-background);
-    --ion-item-background: var(--app-surface);
     --ion-card-background: var(--app-surface);
+
+    /* Planner Themes (Classic Dark) */
+    --planner-lunch-bg: linear-gradient(135deg, #374151, #1e293b);
+    --planner-lunch-border: rgba(255, 239, 186, 0.1);
+    --planner-dinner-bg: linear-gradient(135deg, #064e3b, #022c22);
+    --planner-dinner-border: rgba(150, 230, 161, 0.1);
+    --postit-text: #f8fafc;
 }
 
 /* GALACTIC (STAR WARS) */
@@ -87,4 +99,11 @@ body.galactic {
     --ion-background-color: #000000;
     --ion-text-color: #FFFFFF;
     --ion-toolbar-background: #000000;
+
+    /* Planner Themes (Galactic) */
+    --planner-lunch-bg: rgba(0, 231, 255, 0.05);
+    --planner-lunch-border: #00E7FF;
+    --planner-dinner-bg: rgba(255, 232, 31, 0.05);
+    --planner-dinner-border: #FFE81F;
+    --postit-text: #FFFFFF;
 }

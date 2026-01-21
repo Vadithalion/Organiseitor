@@ -28,37 +28,47 @@
     <div class="planner-container" cdkDropListGroup>
       <div class="grid-header animate-up">
         <div class="day-col">Día</div>
-        <div class="type-col">Almuerzo</div>
-        <div class="type-col">Cena</div>
+        <div class="type-col">
+          <ion-icon name="sunny-outline"></ion-icon> Almuerzo
+        </div>
+        <div class="type-col">
+          <ion-icon name="moon-outline"></ion-icon> Cena
+        </div>
       </div>
 
       <div class="days-list">
-        <div *ngFor="let day of days; let dIdx = index" class="day-row animate-up"
-          [style.animation-delay]="(dIdx * 0.1) + 's'">
+        <div *ngFor="let day of fullDayNames; let dIdx = index" class="day-row animate-up"
+          [style.animation-delay]="(dIdx * 0.05) + 's'">
+
           <div class="day-indicator">
-            <span class="day-initial">{{ day.charAt(0) }}</span>
+            <span class="day-initial">{{ days[dIdx] }}</span>
             <span class="day-full">{{ day }}</span>
           </div>
 
-          <!-- Almuerzo -->
+          <!-- Almuerzo Slot -->
           <div class="organic-slot lunch" cdkDropList [cdkDropListData]="schedule[dIdx][0]"
             (cdkDropListDropped)="drop($event)">
             <div class="curvy-postit lunch-theme" *ngFor="let item of schedule[dIdx][0]" cdkDrag>
-              <textarea [(ngModel)]="item.text" placeholder="..." (ngModelChange)="saveSchedule()"></textarea>
+              <textarea [(ngModel)]="item.text" placeholder="Escribe aquí..." (ngModelChange)="saveSchedule()">
+              </textarea>
               <div class="drag-handle" cdkDragHandle>
-                <ion-icon name="ellipsis-vertical"></ion-icon>
+                <ion-icon name="grid-outline"></ion-icon>
               </div>
+              <!-- Preview while dragging -->
+              <div *cdkDragPlaceholder class="cdk-drag-placeholder"></div>
             </div>
           </div>
 
-          <!-- Cena -->
+          <!-- Cena Slot -->
           <div class="organic-slot dinner" cdkDropList [cdkDropListData]="schedule[dIdx][1]"
             (cdkDropListDropped)="drop($event)">
             <div class="curvy-postit dinner-theme" *ngFor="let item of schedule[dIdx][1]" cdkDrag>
-              <textarea [(ngModel)]="item.text" placeholder="..." (ngModelChange)="saveSchedule()"></textarea>
+              <textarea [(ngModel)]="item.text" placeholder="Escribe aquí..." (ngModelChange)="saveSchedule()">
+              </textarea>
               <div class="drag-handle" cdkDragHandle>
-                <ion-icon name="ellipsis-vertical"></ion-icon>
+                <ion-icon name="grid-outline"></ion-icon>
               </div>
+              <div *cdkDragPlaceholder class="cdk-drag-placeholder"></div>
             </div>
           </div>
         </div>

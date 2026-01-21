@@ -15,8 +15,8 @@ interface PostIt {
   standalone: false
 })
 export class PlanificadorPage implements OnInit {
-  days = ['L', 'M', 'X', 'J', 'V'];
-  fullDayNames = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
+  days = ['L', 'M', 'X', 'J', 'V', 'S', 'D'];
+  fullDayNames = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
   // schedule[dayIndex][0] = lunch list, schedule[dayIndex][1] = dinner list
   schedule: PostIt[][][] = [];
 
@@ -138,7 +138,7 @@ export class PlanificadorPage implements OnInit {
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed) && parsed.length === 5) {
+        if (Array.isArray(parsed) && parsed.length === 7) {
           this.schedule = parsed;
         }
       } catch (e) {
