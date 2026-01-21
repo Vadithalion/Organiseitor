@@ -1,8 +1,8 @@
-<ion-header>
+<ion-header class="ion-no-border">
     <ion-toolbar>
-        <ion-title>Ajustes</ion-title>
+        <ion-title>Ajustes de Interfaz</ion-title>
         <ion-buttons slot="end">
-            <ion-button (click)="dismiss()">
+            <ion-button (click)="dismiss()" class="close-btn">
                 <ion-icon name="close-outline"></ion-icon>
             </ion-button>
         </ion-buttons>
@@ -11,32 +11,45 @@
 
 <ion-content class="ion-padding">
     <div class="theme-selection">
-        <h3>Apariencia</h3>
-        <p class="subtitle">Personaliza tu experiencia visual</p>
+        <h3>Experiencia Visual</h3>
+        <p class="subtitle">Elige el estilo que mejor se adapte a tu viaje</p>
 
-        <div class="theme-options">
-            <div class="theme-option" [class.selected]="currentTheme === 'light'" (click)="selectTheme('light')">
-                <div class="preview light-preview">
-                    <div class="preview-header"></div>
-                    <div class="preview-content">
-                        <div class="line"></div>
-                        <div class="line"></div>
-                    </div>
+        <div class="theme-grid">
+            <!-- Light -->
+            <div class="theme-card" [class.active]="currentTheme === 'light'" (click)="selectTheme('light')">
+                <div class="preview classic-light">
+                    <div class="blob"></div>
+                    <div class="ui-line"></div>
                 </div>
-                <span>Claro</span>
-                <ion-icon name="checkmark-circle" color="primary" *ngIf="currentTheme === 'light'"></ion-icon>
+                <div class="card-info">
+                    <span class="label">Clásico Claro</span>
+                    <ion-icon name="sunny-outline"></ion-icon>
+                </div>
             </div>
 
-            <div class="theme-option" [class.selected]="currentTheme === 'dark'" (click)="selectTheme('dark')">
-                <div class="preview dark-preview">
-                    <div class="preview-header"></div>
-                    <div class="preview-content">
-                        <div class="line"></div>
-                        <div class="line"></div>
-                    </div>
+            <!-- Dark -->
+            <div class="theme-card" [class.active]="currentTheme === 'dark'" (click)="selectTheme('dark')">
+                <div class="preview classic-dark">
+                    <div class="blob"></div>
+                    <div class="ui-line"></div>
                 </div>
-                <span>Oscuro</span>
-                <ion-icon name="checkmark-circle" color="primary" *ngIf="currentTheme === 'dark'"></ion-icon>
+                <div class="card-info">
+                    <span class="label">Clásico Oscuro</span>
+                    <ion-icon name="moon-outline"></ion-icon>
+                </div>
+            </div>
+
+            <!-- Galactic -->
+            <div class="theme-card galactic-option" [class.active]="currentTheme === 'galactic'"
+                (click)="selectTheme('galactic')">
+                <div class="preview galactic-preview">
+                    <div class="stars"></div>
+                    <div class="scanline"></div>
+                </div>
+                <div class="card-info">
+                    <span class="label">Galáctico (SW)</span>
+                    <ion-icon name="rocket-outline"></ion-icon>
+                </div>
             </div>
         </div>
     </div>

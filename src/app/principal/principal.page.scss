@@ -1,44 +1,11 @@
+/* --- SHARED BASE --- */
 .main-wrapper {
   padding: 1.5rem;
   height: 100%;
   display: flex;
   flex-direction: column;
   position: relative;
-  z-index: 2;
-}
-
-/* Organic Background Blobs */
-.blob-bg {
-  position: fixed;
-  border-radius: 50%;
-  filter: blur(80px);
-  z-index: 1;
-  opacity: 0.15;
-  pointer-events: none;
-}
-
-.blob-1 {
-  width: 400px;
-  height: 400px;
-  background: var(--ion-color-primary);
-  top: -100px;
-  left: -100px;
-}
-
-.blob-2 {
-  width: 300px;
-  height: 300px;
-  background: var(--ion-color-secondary);
-  bottom: 10%;
-  right: -50px;
-}
-
-.blob-3 {
-  width: 250px;
-  height: 250px;
-  background: var(--ion-color-tertiary);
-  top: 30%;
-  left: 40%;
+  z-index: 10;
 }
 
 .settings-btn {
@@ -46,100 +13,100 @@
   font-size: 1.6rem;
 }
 
-/* Minimalist Hero */
-.hero-section {
-  padding: 0.5rem 0.5rem 2rem;
+/* --- CLASSIC (ORGANIC) STYLES --- */
+.main-wrapper.classic {
+  .hero-section {
+    padding: 0.5rem 0.5rem 2rem;
 
-  .main-phrase {
-    font-size: 2rem;
-    font-weight: 900;
-    color: var(--app-text-main);
-    margin: 0;
-    letter-spacing: -1.5px;
-  }
+    .main-phrase {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--app-text-main);
+      margin: 0;
+      letter-spacing: -1.5px;
+    }
 
-  .greeting-tagline {
-    font-size: 0.8rem;
-    font-weight: 800;
-    color: var(--ion-color-primary);
-    margin: 0.2rem 0 0;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-  }
-}
-
-/* Organic Grid */
-.organic-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.2rem;
-  flex: 1;
-}
-
-.curvy-card {
-  background: var(--app-glass-bg);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-radius: var(--app-radius-xl);
-  border: 1px solid var(--app-glass-border);
-  padding: 1.5rem;
-  box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.08);
-  transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  overflow: hidden;
-
-  &:active {
-    transform: scale(0.96);
-  }
-
-  .icon-sphere {
-    width: 52px;
-    height: 52px;
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 1rem;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
-
-    ion-icon {
-      font-size: 1.8rem;
+    .greeting-tagline {
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: var(--ion-color-primary);
+      margin: 0.2rem 0 0;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
     }
   }
 
-  h3 {
-    margin: 0;
-    font-size: 1.25rem;
-    font-weight: 900;
-    color: var(--app-text-main);
-    letter-spacing: -0.5px;
+  .organic-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.2rem;
+    flex: 1;
   }
-}
 
-/* Shopping Card Specialized */
-.shopping-glass {
-  grid-column: span 2;
-
-  .card-header {
+  .curvy-card {
+    background: var(--app-glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: var(--app-radius-xl);
+    border: 1px solid var(--app-glass-border);
+    padding: 1.5rem;
+    box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.08);
+    transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
     display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
+    flex-direction: column;
+    overflow: hidden;
+    animation: curveEntry 0.8s cubic-bezier(0.19, 1, 0.22, 1) both;
+
+    &:active {
+      transform: scale(0.96);
+    }
 
     .icon-sphere {
-      margin-bottom: 0;
-      background: var(--ion-color-primary);
-      color: white;
-      border-radius: 50%;
+      width: 52px;
+      height: 52px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+
+      ion-icon {
+        font-size: 1.8rem;
+      }
+    }
+
+    h3 {
+      margin: 0;
+      font-size: 1.25rem;
+      font-weight: 900;
+      color: var(--app-text-main);
+      letter-spacing: -0.5px;
     }
   }
 
-  .pill-actions {
-    display: grid;
-    grid-template-columns: 1.3fr 1fr;
-    gap: 0.8rem;
+  .shopping-glass {
+    grid-column: span 2;
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+
+      .icon-sphere {
+        margin-bottom: 0;
+        background: var(--ion-color-primary);
+        color: white;
+        border-radius: 50%;
+      }
+    }
+
+    .pill-actions {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 0.8rem;
+    }
 
     .pill-btn {
       border: none;
@@ -163,70 +130,224 @@
       }
     }
   }
-}
 
-/* Grid Modules */
-.glass-module {
-  height: 180px;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-
-  .icon-sphere {
-    margin-bottom: 1rem;
-    background: rgba(var(--color-rgb), 0.1);
-    color: var(--color-val);
-    border-radius: 50%;
-  }
-}
-
-.menu-module {
-  --color-val: var(--ion-color-secondary);
-  --color-rgb: var(--ion-color-secondary-rgb);
-}
-
-.balance-module {
-  --color-val: var(--ion-color-tertiary);
-  --color-rgb: var(--ion-color-tertiary-rgb);
-}
-
-/* Home Module Wide */
-.wide-glass {
-  grid-column: span 2;
-  margin-top: 0.5rem;
-
-  .module-content.horizontal {
-    display: flex;
+  .glass-module {
+    height: 180px;
+    justify-content: center;
     align-items: center;
-    gap: 1.5rem;
-    width: 100%;
+    text-align: center;
 
     .icon-sphere {
-      margin-bottom: 0;
-      background: rgba(var(--ion-color-warning-rgb), 0.1);
-      color: var(--ion-color-warning);
+      margin-bottom: 1rem;
+      background: rgba(var(--color-rgb), 0.1);
+      color: var(--color-val);
       border-radius: 50%;
     }
 
-    .text-group {
-      flex: 1;
-
-      h3 {
-        font-size: 1.2rem;
-      }
-
-      p {
-        margin: 0.1rem 0 0;
-        font-size: 0.85rem;
-        font-weight: 600;
-        opacity: 0.5;
-      }
+    &.menu-module {
+      --color-val: var(--ion-color-secondary);
+      --color-rgb: var(--ion-color-secondary-rgb);
     }
 
-    .go-icon {
-      font-size: 1.4rem;
-      opacity: 0.3;
+    &.balance-module {
+      --color-val: var(--ion-color-tertiary);
+      --color-rgb: var(--ion-color-tertiary-rgb);
     }
+  }
+
+  .wide-glass {
+    grid-column: span 2;
+    margin-top: 0.5rem;
+
+    .module-content.horizontal {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      width: 100%;
+
+      .icon-sphere {
+        margin-bottom: 0;
+        background: rgba(var(--ion-color-warning-rgb), 0.1);
+        color: var(--ion-color-warning);
+        border-radius: 50%;
+      }
+
+      .text-group {
+        flex: 1;
+
+        h3 {
+          font-size: 1.2rem;
+        }
+
+        p {
+          margin: 0.1rem 0 0;
+          font-size: 0.85rem;
+          font-weight: 600;
+          opacity: 0.5;
+        }
+      }
+
+      .go-icon {
+        font-size: 1.4rem;
+        opacity: 0.3;
+      }
+    }
+  }
+
+  .blob-bg {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(80px);
+    z-index: 1;
+    opacity: 0.15;
+    pointer-events: none;
+  }
+
+  .blob-1 {
+    width: 400px;
+    height: 400px;
+    background: var(--ion-color-primary);
+    top: -100px;
+    left: -100px;
+  }
+
+  .blob-2 {
+    width: 300px;
+    height: 300px;
+    background: var(--ion-color-secondary);
+    bottom: 10%;
+    right: -50px;
+  }
+
+  .blob-3 {
+    width: 250px;
+    height: 250px;
+    background: var(--ion-color-tertiary);
+    top: 30%;
+    left: 40%;
+  }
+}
+
+/* --- GALACTIC (STAR WARS) STYLES --- */
+.main-wrapper.galactic {
+  .hero-section {
+    padding: 1rem 0;
+    text-align: center;
+    position: relative;
+    margin-bottom: 1rem;
+
+    .main-phrase {
+      color: var(--ion-color-primary);
+      font-size: 1.8rem;
+      font-weight: 900;
+      letter-spacing: 4px;
+      text-shadow: 0 0 15px rgba(255, 232, 31, 0.4);
+      margin: 0;
+    }
+
+    .greeting-tagline {
+      color: #fff;
+      font-weight: 800;
+      font-size: 0.7rem;
+      letter-spacing: 1.5px;
+      opacity: 0.6;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    .imperial-bracket {
+      position: absolute;
+      width: 15px;
+      height: 110%;
+      border: 2px solid var(--ion-color-primary);
+      top: -5%;
+
+      &.left {
+        left: 0;
+        border-right: none;
+      }
+
+      &.right {
+        right: 0;
+        border-left: none;
+      }
+    }
+  }
+
+  .galactic-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.8rem;
+    flex: 1;
+  }
+
+  .tech-card {
+    background: rgba(0, 231, 255, 0.05);
+    border: 1px solid rgba(0, 231, 255, 0.3);
+    position: relative;
+    overflow: hidden;
+    padding: 1rem;
+    backdrop-filter: blur(5px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    &.wide {
+      grid-column: span 2;
+      padding: 0.8rem 1rem;
+    }
+
+    &:active {
+      background: rgba(0, 231, 255, 0.15);
+      transform: scale(0.98);
+    }
+
+    h3 {
+      margin: 2px 0 0;
+      font-weight: 900;
+      font-size: 1rem;
+      letter-spacing: 1px;
+      color: #fff;
+    }
+
+    p {
+      margin: 0;
+      font-size: 0.65rem;
+      font-weight: 800;
+      color: var(--ion-color-primary);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+  }
+
+  .tech-icon-box {
+    font-size: 1.6rem;
+    color: #fff;
+    opacity: 0.8;
+    margin-bottom: 2px;
+  }
+
+  .scanline {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: rgba(0, 231, 255, 0.2);
+    animation: scan 4s linear infinite;
+  }
+
+  .pulse-icon {
+    margin-left: auto;
+    font-size: 1.5rem;
+    color: var(--ion-color-danger);
+    animation: pulse-red 2s infinite;
+  }
+
+  .horizontal {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
   }
 }
 
@@ -243,12 +364,27 @@
   }
 }
 
-.curvy-card {
-  animation: curveEntry 0.8s cubic-bezier(0.19, 1, 0.22, 1) both;
+@keyframes scan {
+  0% {
+    top: 0%;
+  }
+
+  100% {
+    top: 100%;
+  }
 }
 
-@for $i from 1 through 4 {
-  .curvy-card:nth-child(#{$i}) {
-    animation-delay: #{$i * 0.1}s;
+@keyframes pulse-red {
+  0% {
+    opacity: 0.4;
+  }
+
+  50% {
+    opacity: 1;
+    text-shadow: 0 0 10px red;
+  }
+
+  100% {
+    opacity: 0.4;
   }
 }

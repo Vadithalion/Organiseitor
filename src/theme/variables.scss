@@ -1,90 +1,90 @@
-     :root {
-         /** primary - Indigo/Royal Blue **/
-         --ion-color-primary: #4F46E5;
-         --ion-color-primary-rgb: 79, 70, 229;
-         --ion-color-primary-contrast: #ffffff;
-         --ion-color-primary-contrast-rgb: 255, 255, 255;
-         --ion-color-primary-shade: #453dc9;
-         --ion-color-primary-tint: #6158e8;
+:root {
+    /** primary - Classic Indigo **/
+    --ion-color-primary: #4F46E5;
+    --ion-color-primary-rgb: 79, 70, 229;
+    --ion-color-primary-contrast: #ffffff;
+    --ion-color-primary-contrast-rgb: 255, 255, 255;
+    --ion-color-primary-shade: #453dc9;
+    --ion-color-primary-tint: #6158e8;
 
-         /** secondary - Vibrant Pink/Magenta **/
-         --ion-color-secondary: #EC4899;
-         --ion-color-secondary-rgb: 236, 72, 153;
-         --ion-color-secondary-contrast: #ffffff;
-         --ion-color-secondary-contrast-rgb: 255, 255, 255;
-         --ion-color-secondary-shade: #cf3f86;
-         --ion-color-secondary-tint: #ee5aa3;
+    /** secondary - Pink **/
+    --ion-color-secondary: #EC4899;
+    --ion-color-secondary-rgb: 236, 72, 153;
 
-         /** tertiary - Emerald Green **/
-         --ion-color-tertiary: #10B981;
-         --ion-color-tertiary-rgb: 16, 185, 129;
-         --ion-color-tertiary-contrast: #ffffff;
-         --ion-color-tertiary-contrast-rgb: 255, 255, 255;
-         --ion-color-tertiary-shade: #0ea271;
-         --ion-color-tertiary-tint: #28c08e;
+    /** tertiary - Emerald **/
+    --ion-color-tertiary: #10B981;
+    --ion-color-tertiary-rgb: 16, 185, 129;
 
-         /** dark **/
-         --ion-color-dark: #1f2937;
-         --ion-color-dark-rgb: 31, 41, 55;
-         --ion-color-dark-contrast: #ffffff;
-         --ion-color-dark-contrast-rgb: 255, 255, 255;
-         --ion-color-dark-shade: #1b2430;
-         --ion-color-dark-tint: #353e4b;
+    /** danger **/
+    --ion-color-danger: #EF4444;
+    --ion-color-danger-rgb: 239, 68, 68;
 
-         /* Custom Semantic Variables (Light) */
-         --app-surface: #ffffff;
-         --app-background: #f8fafc;
-         --app-glass-bg: rgba(255, 255, 255, 0.7);
-         --app-glass-border: rgba(255, 255, 255, 0.4);
-         --app-text-main: #0f172a;
-         --app-text-secondary: #475569;
+    /** success **/
+    --ion-color-success: #10B981;
 
-         /* Organic Design Tokens */
-         --app-radius-xl: 40px;
-         --app-radius-lg: 28px;
-         --app-radius-md: 20px;
-         --app-radius-pill: 50px;
+    /* Semantic Variables (Classic Light Default) */
+    --app-surface: #ffffff;
+    --app-background: #f8fafc;
+    --app-glass-bg: rgba(255, 255, 255, 0.7);
+    --app-glass-border: rgba(255, 255, 255, 0.4);
+    --app-text-main: #0f172a;
+    --app-text-secondary: #475569;
 
-         /* Ionic Global Overrides */
-         --ion-background-color: var(--app-background);
-         --ion-text-color: var(--app-text-main);
-         --ion-item-background: var(--app-surface);
-         --ion-card-background: var(--app-surface);
-     }
+    /* Organic Proportions (Classic) */
+    --app-radius-xl: 40px;
+    --app-radius-lg: 28px;
+    --app-radius-md: 20px;
+    --app-radius-pill: 50px;
 
-     body.dark {
-         --ion-color-primary: #6366f1;
-         --ion-color-primary-rgb: 99, 102, 241;
-         --ion-color-primary-contrast: #ffffff;
-         --ion-color-primary-contrast-rgb: 255, 255, 255;
-         --ion-color-primary-shade: #575ac4;
-         --ion-color-primary-tint: #7376f2;
+    --ion-background-color: var(--app-background);
+    --ion-text-color: var(--app-text-main);
+}
 
-         --ion-color-secondary: #f472b6;
-         --ion-color-secondary-rgb: 244, 114, 182;
-         --ion-color-secondary-contrast: #000000;
-         --ion-color-secondary-contrast-rgb: 0, 0, 0;
+/* CLASSIC DARK */
+body.dark {
+    --app-surface: #1e293b;
+    --app-background: #0f172a;
+    --app-glass-bg: rgba(30, 41, 59, 0.7);
+    --app-glass-border: rgba(255, 255, 255, 0.08);
+    --app-text-main: #f8fafc;
+    --app-text-secondary: #94a3b8;
 
-         --ion-color-tertiary: #34d399;
-         --ion-color-tertiary-rgb: 52, 211, 153;
+    --ion-background-color: var(--app-background);
+    --ion-text-color: var(--app-text-main);
+    --ion-toolbar-background: var(--app-background);
+    --ion-item-background: var(--app-surface);
+    --ion-card-background: var(--app-surface);
+}
 
-         /* Custom Semantic Variables (Dark) */
-         --app-surface: #1e293b;
-         --app-background: #0f172a;
-         --app-glass-bg: rgba(30, 41, 59, 0.7);
-         --app-glass-border: rgba(255, 255, 255, 0.08);
-         --app-text-main: #f8fafc;
-         --app-text-secondary: #94a3b8;
+/* GALACTIC (STAR WARS) */
+body.galactic {
+    --ion-color-primary: #FFE81F;
+    /* SW Yellow */
+    --ion-color-primary-rgb: 255, 232, 31;
+    --ion-color-primary-contrast: #000000;
 
-         /* Ionic Global Overrides (Dark) */
-         --ion-background-color: var(--app-background);
-         --ion-text-color: var(--app-text-main);
-         --ion-item-background: var(--app-surface);
-         --ion-card-background: var(--app-surface);
-         --ion-toolbar-background: var(--app-background);
-         --ion-tab-bar-background: var(--app-surface);
-     }
+    --ion-color-secondary: #2E5BFF;
+    /* Lightsaber Blue */
+    --ion-color-tertiary: #00FF41;
+    /* Lightsaber Green */
+    --ion-color-danger: #FF0000;
+    /* Sith Red */
 
-     ion-content {
-         --background: var(--app-background);
-     }
+    --app-surface: rgba(20, 20, 25, 0.8);
+    --app-background: #000000;
+    --app-glass-bg: rgba(0, 231, 255, 0.1);
+    /* Hologram style */
+    --app-glass-border: rgba(0, 231, 255, 0.3);
+    --app-text-main: #FFFFFF;
+    --app-text-secondary: #FFE81F;
+
+    /* Tech Proportions */
+    --app-radius-xl: 4px;
+    --app-radius-lg: 2px;
+    --app-radius-md: 0px;
+    --app-radius-pill: 0px;
+
+    --ion-background-color: #000000;
+    --ion-text-color: #FFFFFF;
+    --ion-toolbar-background: #000000;
+}

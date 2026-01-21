@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { ThemeService } from '../services/theme.service';
+import { ThemeService, AppTheme } from '../services/theme.service';
 
 @Component({
     selector: 'app-settings-modal',
@@ -9,7 +9,7 @@ import { ThemeService } from '../services/theme.service';
     standalone: false
 })
 export class SettingsModalComponent implements OnInit {
-    currentTheme: 'light' | 'dark' = 'light';
+    currentTheme: AppTheme = 'light';
 
     constructor(
         private modalCtrl: ModalController,
@@ -20,7 +20,7 @@ export class SettingsModalComponent implements OnInit {
         this.currentTheme = this.themeService.getTheme();
     }
 
-    selectTheme(theme: 'light' | 'dark') {
+    selectTheme(theme: AppTheme) {
         this.currentTheme = theme;
         this.themeService.setTheme(theme);
     }

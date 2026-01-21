@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ModalController, ToastController } from '@ionic/angular';
 import { SettingsModalComponent } from './settings-modal.component';
+import { ThemeService, AppTheme } from '../services/theme.service';
 
 @Component({
     selector: 'app-principal',
@@ -8,11 +9,20 @@ import { SettingsModalComponent } from './settings-modal.component';
     styleUrls: ['principal.page.scss'],
     standalone: false
 })
-export class PrincipalPage {
+export class PrincipalPage implements OnInit {
+    currentTheme: AppTheme = 'light';
+
     constructor(
         private modalCtrl: ModalController,
-        private toastCtrl: ToastController
+        private toastCtrl: ToastController,
+        private themeService: ThemeService
     ) { }
+
+    ngOnInit() {
+        this.themeService.theme$.subscribe(theme => {
+            this.currentTheme = theme;
+        });
+    }
 
     get greeting(): string {
         const hour = new Date().getHours();
@@ -25,8 +35,8 @@ export class PrincipalPage {
         const modal = await this.modalCtrl.create({
             component: SettingsModalComponent,
             cssClass: 'settings-modal',
-            initialBreakpoint: 0.5,
-            breakpoints: [0, 0.5, 0.75],
+            initialBreakpoint: 0.75,
+            breakpoints: [0, 0.75, 1],
             handle: true
         });
         return await modal.present();

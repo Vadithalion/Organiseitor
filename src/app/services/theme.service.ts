@@ -1,11 +1,15 @@
 import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+
+export type AppTheme = 'light' | 'dark' | 'galactic';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ThemeService {
     private renderer: Renderer2;
-    private currentTheme: 'light' | 'dark' = 'light';
+    private themeSubject = new BehaviorSubject<AppTheme>('light');
+    public theme$ = this.themeSubject.asObservable();
 
     constructor(rendererFactory: RendererFactory2) {
         this.renderer = rendererFactory.createRenderer(null, null);
@@ -13,28 +17,29 @@ export class ThemeService {
     }
 
     private initTheme() {
-        const savedTheme = localStorage.getItem('theme-preference');
+        const savedTheme = localStorage.getItem('theme-preference') as AppTheme;
         if (savedTheme) {
-            this.setTheme(savedTheme as 'light' | 'dark');
+            this.setTheme(savedTheme);
         } else {
-            // Check system preference
             const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
             this.setTheme(prefersDark.matches ? 'dark' : 'light');
         }
     }
 
-    setTheme(theme: 'light' | 'dark') {
-        this.currentTheme = theme;
+    setTheme(theme: AppTheme) {
+        this.themeSubject.next(theme);
         localStorage.setItem('theme-preference', theme);
 
-        if (theme === 'dark') {
-            this.renderer.addClass(document.body, 'dark');
-        } else {
-            this.renderer.removeClass(document.body, 'dark');
-        }
+        // Remove all theme classes first
+        this.renderer.removeClass(document.body, 'light');
+        this.renderer.removeClass(document.body, 'dark');
+        this.renderer.removeClass(document.body, 'galactic');
+
+        // Add the new one
+        this.renderer.addClass(document.body, theme);
     }
 
-    getTheme() {
-        return this.currentTheme;
+    getTheme(): AppTheme {
+        return this.themeSubject.value;
     }
 }

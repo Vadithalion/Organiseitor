@@ -9,73 +9,126 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" scroll-y="false">
-  <!-- Organic Background Blobs -->
-  <div class="blob-bg blob-1"></div>
-  <div class="blob-bg blob-2"></div>
-  <div class="blob-bg blob-3"></div>
 
-  <div class="main-wrapper">
-    <!-- Sophisticated Hero -->
-    <header class="hero-section">
-      <h1 class="main-phrase">¿Qué organizamos hoy?</h1>
-      <p class="greeting-tagline">{{ greeting }}</p>
-    </header>
-
-    <!-- Curvy Organic Grid -->
-    <div class="organic-grid">
-
-      <!-- COMPRA: Curvy Card with Internal Pills -->
-      <div class="curvy-card shopping-glass">
-        <div class="card-header">
-          <div class="icon-sphere">
-            <ion-icon name="cart"></ion-icon>
-          </div>
-          <h3>La Compra</h3>
-        </div>
-        <div class="pill-actions">
-          <button class="pill-btn primary" routerLink="/organiseitor/lista">
-            <span>Lista</span>
-          </button>
-          <button class="pill-btn secondary" routerLink="/organiseitor/historial">
-            <span>Historial</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- MENUS: Curvy Card -->
-      <div class="curvy-card glass-module menu-module" routerLink="/planificador">
-        <div class="module-content">
-          <div class="icon-sphere">
-            <ion-icon name="restaurant"></ion-icon>
-          </div>
-          <h3>Menús</h3>
-        </div>
-      </div>
-
-      <!-- BALANCE: Curvy Card -->
-      <div class="curvy-card glass-module balance-module" routerLink="/balance-global">
-        <div class="module-content">
-          <div class="icon-sphere">
-            <ion-icon name="analytics"></ion-icon>
-          </div>
-          <h3>Balance</h3>
-        </div>
-      </div>
-
-      <!-- GASTOS CASA: Curvy Card -->
-      <div class="curvy-card wide-glass home-module" routerLink="/gastos-casa">
-        <div class="module-content horizontal">
-          <div class="icon-sphere">
-            <ion-icon name="home"></ion-icon>
-          </div>
-          <div class="text-group">
-            <h3>Gastos Casa</h3>
-            <p>Control del hogar</p>
-          </div>
-          <ion-icon name="chevron-forward-outline" class="go-icon"></ion-icon>
-        </div>
-      </div>
-
+  <!-- GALACTIC (STAR WARS) LAYOUT -->
+  <ng-container *ngIf="currentTheme === 'galactic'">
+    <div class="stars-container">
+      <div class="star-layer"></div>
     </div>
-  </div>
+    <div class="main-wrapper galactic">
+      <header class="hero-section galactic">
+        <div class="imperial-bracket left"></div>
+        <h1 class="main-phrase">COMMAND CENTER</h1>
+        <p class="greeting-tagline">{{ greeting }}</p>
+        <div class="imperial-bracket right"></div>
+      </header>
+
+      <div class="galactic-grid">
+        <div class="tech-card logistics-panel" routerLink="/organiseitor/lista">
+          <div class="scanline"></div>
+          <div class="card-body">
+            <div class="tech-icon-box"><ion-icon name="cube-outline"></ion-icon></div>
+            <div class="tech-info">
+              <h3>LOGÍSTICA</h3>
+              <p>SUMINISTROS</p>
+            </div>
+          </div>
+        </div>
+        <div class="tech-card archives-panel" routerLink="/organiseitor/historial">
+          <div class="scanline"></div>
+          <div class="card-body">
+            <div class="tech-icon-box"><ion-icon name="library-outline"></ion-icon></div>
+            <div class="tech-info">
+              <h3>ARCHIVOS</h3>
+              <p>HISTORIAL</p>
+            </div>
+          </div>
+        </div>
+        <div class="tech-card navigation-panel" routerLink="/planificador">
+          <div class="scanline"></div>
+          <div class="card-body">
+            <div class="tech-icon-box"><ion-icon name="navigate-outline"></ion-icon></div>
+            <div class="tech-info">
+              <h3>NAVEGACIÓN</h3>
+              <p>PLAN SEMANAL</p>
+            </div>
+          </div>
+        </div>
+        <div class="tech-card credits-panel" routerLink="/balance-global">
+          <div class="scanline"></div>
+          <div class="card-body">
+            <div class="tech-icon-box"><ion-icon name="card-outline"></ion-icon></div>
+            <div class="tech-info">
+              <h3>CRÉDITOS</h3>
+              <p>BALANCE</p>
+            </div>
+          </div>
+        </div>
+        <div class="tech-card wide command-panel" routerLink="/gastos-casa">
+          <div class="scanline"></div>
+          <div class="card-body horizontal">
+            <div class="tech-icon-box"><ion-icon name="business-outline"></ion-icon></div>
+            <div class="tech-info">
+              <h3>ESTACIÓN DE MANDO</h3>
+              <p>SISTEMA CENTRAL DE GASTOS</p>
+            </div>
+            <ion-icon name="radio-outline" class="pulse-icon"></ion-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <!-- CLASSIC (ORGANIC) LAYOUT -->
+  <ng-container *ngIf="currentTheme !== 'galactic'">
+    <div class="blob-bg blob-1"></div>
+    <div class="blob-bg blob-2"></div>
+    <div class="blob-bg blob-3"></div>
+
+    <div class="main-wrapper classic">
+      <header class="hero-section classic">
+        <h1 class="main-phrase">¿Qué organizamos hoy?</h1>
+        <p class="greeting-tagline">{{ greeting }}</p>
+      </header>
+
+      <div class="organic-grid">
+        <div class="curvy-card shopping-glass">
+          <div class="card-header">
+            <div class="icon-sphere"><ion-icon name="cart"></ion-icon></div>
+            <h3>La Compra</h3>
+          </div>
+          <div class="pill-actions">
+            <button class="pill-btn primary" routerLink="/organiseitor/lista"><span>Lista</span></button>
+            <button class="pill-btn secondary" routerLink="/organiseitor/historial"><span>Historial</span></button>
+          </div>
+        </div>
+
+        <div class="curvy-card glass-module menu-module" routerLink="/planificador">
+          <div class="module-content">
+            <div class="icon-sphere"><ion-icon name="restaurant"></ion-icon></div>
+            <h3>Menús</h3>
+          </div>
+        </div>
+
+        <div class="curvy-card glass-module balance-module" routerLink="/balance-global">
+          <div class="module-content">
+            <div class="icon-sphere"><ion-icon name="analytics"></ion-icon></div>
+            <h3>Balance</h3>
+          </div>
+        </div>
+
+        <div class="curvy-card wide-glass home-module" routerLink="/gastos-casa">
+          <div class="module-content horizontal">
+            <div class="icon-sphere"><ion-icon name="home"></ion-icon></div>
+            <div class="text-group">
+              <h3>Gastos Casa</h3>
+              <p>Control del hogar</p>
+            </div>
+            <ion-icon name="chevron-forward-outline" class="go-icon"></ion-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
 </ion-content>
