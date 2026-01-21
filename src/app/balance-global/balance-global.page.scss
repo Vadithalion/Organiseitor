@@ -1,5 +1,5 @@
 .alternate-bg {
-    --background: #f8fafd;
+    --background: var(--app-background);
 }
 
 .balance-container {
@@ -7,18 +7,19 @@
 }
 
 .main-total-card {
-    background: white;
+    background: var(--app-surface);
     padding: 40px 24px;
     border-radius: 28px;
     text-align: center;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
     margin-bottom: 24px;
-    border: 1px solid rgba(var(--ion-color-primary-rgb), 0.05);
-    background: linear-gradient(180deg, #ffffff 0%, #fdfdff 100%);
+    border: 1px solid var(--app-input-border);
+    background: linear-gradient(180deg, var(--app-surface) 0%, var(--app-background) 100%);
 
     ion-text {
         font-weight: 700;
         letter-spacing: 1px;
+        color: var(--app-text-secondary);
     }
 
     h1 {
@@ -27,12 +28,12 @@
         font-weight: 900;
         color: var(--ion-color-success);
         letter-spacing: -2px;
-        text-shadow: 0 2px 4px rgba(var(--ion-color-success-rgb), 0.1);
+        text-shadow: 0 2px 4px rgba(var(--ion-color-success-rgb), 0.2);
     }
 
     &.negative h1 {
         color: var(--ion-color-danger);
-        text-shadow: 0 2px 4px rgba(var(--ion-color-danger-rgb), 0.1);
+        text-shadow: 0 2px 4px rgba(var(--ion-color-danger-rgb), 0.2);
     }
 }
 
@@ -41,14 +42,14 @@
 }
 
 .summary-box {
-    background: white;
+    background: var(--app-surface);
     padding: 16px;
     border-radius: 18px;
     display: flex;
     align-items: center;
     gap: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
-    border: 1px solid rgba(0, 0, 0, 0.01);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--app-input-border);
 
     ion-icon {
         font-size: 2.2rem;
@@ -98,20 +99,24 @@
 }
 
 .movement-item {
-    --background: white;
+    --background: var(--app-surface);
+    --color: var(--app-text-main);
     --padding-start: 12px;
     --padding-end: 12px;
     border-radius: 16px;
     margin-bottom: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--app-input-border);
 
     h2 {
         font-weight: 600;
         font-size: 1rem;
+        color: var(--app-text-main);
     }
 
     p {
         font-size: 0.85rem;
+        color: var(--app-text-secondary);
     }
 
     .amount-text {
@@ -127,11 +132,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(var(--ion-color-danger-rgb), 0.1);
+    background: rgba(var(--ion-color-danger-rgb), 0.15);
     color: var(--ion-color-danger);
 
     &.is-income {
-        background: rgba(var(--ion-color-success-rgb), 0.1);
+        background: rgba(var(--ion-color-success-rgb), 0.15);
         color: var(--ion-color-success);
     }
 
@@ -147,7 +152,7 @@
 
     ion-icon {
         font-size: 4rem;
-        opacity: 0.2;
+        opacity: 0.3;
         margin-bottom: 16px;
     }
 }
