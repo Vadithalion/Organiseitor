@@ -41,10 +41,6 @@
   left: 40%;
 }
 
-ion-toolbar {
-  --background: transparent;
-}
-
 .settings-btn {
   --color: var(--app-text-secondary);
   font-size: 1.6rem;
@@ -55,20 +51,20 @@ ion-toolbar {
   padding: 0.5rem 0.5rem 2rem;
 
   .main-phrase {
-    font-size: 1.8rem;
-    font-weight: 800;
+    font-size: 2rem;
+    font-weight: 900;
     color: var(--app-text-main);
     margin: 0;
-    letter-spacing: -1px;
+    letter-spacing: -1.5px;
   }
 
   .greeting-tagline {
-    font-size: 0.9rem;
-    font-weight: 600;
+    font-size: 0.8rem;
+    font-weight: 800;
     color: var(--ion-color-primary);
     margin: 0.2rem 0 0;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
   }
 }
 
@@ -81,26 +77,26 @@ ion-toolbar {
 }
 
 .curvy-card {
-  background: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-  border-radius: 40px;
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: var(--app-glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: var(--app-radius-xl);
+  border: 1px solid var(--app-glass-border);
   padding: 1.5rem;
-  box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.05);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.08);
+  transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
   display: flex;
   flex-direction: column;
   position: relative;
   overflow: hidden;
 
   &:active {
-    transform: scale(0.95);
+    transform: scale(0.96);
   }
 
   .icon-sphere {
-    width: 48px;
-    height: 48px;
+    width: 52px;
+    height: 52px;
     border-radius: 20px;
     display: flex;
     align-items: center;
@@ -115,17 +111,16 @@ ion-toolbar {
 
   h3 {
     margin: 0;
-    font-size: 1.15rem;
-    font-weight: 800;
+    font-size: 1.25rem;
+    font-weight: 900;
     color: var(--app-text-main);
-    letter-spacing: -0.3px;
+    letter-spacing: -0.5px;
   }
 }
 
 /* Shopping Card Specialized */
 .shopping-glass {
   grid-column: span 2;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.4) 100%);
 
   .card-header {
     display: flex;
@@ -138,39 +133,33 @@ ion-toolbar {
       background: var(--ion-color-primary);
       color: white;
       border-radius: 50%;
-      /* Pure curve */
     }
   }
 
   .pill-actions {
     display: grid;
-    grid-template-columns: 1.2fr 1fr;
+    grid-template-columns: 1.3fr 1fr;
     gap: 0.8rem;
 
     .pill-btn {
       border: none;
       outline: none;
-      padding: 0.9rem;
-      border-radius: 25px;
-      /* Pill shape */
-      font-weight: 700;
-      font-size: 0.9rem;
+      padding: 1rem;
+      border-radius: var(--app-radius-pill);
+      font-weight: 800;
+      font-size: 0.95rem;
       cursor: pointer;
       transition: all 0.2s ease;
 
       &.primary {
         background: var(--ion-color-primary);
         color: white;
-        box-shadow: 0 10px 20px -5px rgba(var(--ion-color-primary-rgb), 0.3);
+        box-shadow: 0 10px 20px rgba(var(--ion-color-primary-rgb), 0.3);
       }
 
       &.secondary {
-        background: rgba(var(--ion-color-primary-rgb), 0.08);
+        background: rgba(var(--ion-color-primary-rgb), 0.1);
         color: var(--ion-color-primary);
-      }
-
-      &:active {
-        opacity: 0.8;
       }
     }
   }
@@ -178,13 +167,13 @@ ion-toolbar {
 
 /* Grid Modules */
 .glass-module {
-  height: 160px;
+  height: 180px;
   justify-content: center;
   align-items: center;
   text-align: center;
 
   .icon-sphere {
-    margin-bottom: 0.8rem;
+    margin-bottom: 1rem;
     background: rgba(var(--color-rgb), 0.1);
     color: var(--color-val);
     border-radius: 50%;
@@ -209,7 +198,7 @@ ion-toolbar {
   .module-content.horizontal {
     display: flex;
     align-items: center;
-    gap: 1.2rem;
+    gap: 1.5rem;
     width: 100%;
 
     .icon-sphere {
@@ -222,17 +211,21 @@ ion-toolbar {
     .text-group {
       flex: 1;
 
+      h3 {
+        font-size: 1.2rem;
+      }
+
       p {
         margin: 0.1rem 0 0;
         font-size: 0.85rem;
-        color: var(--app-text-secondary);
+        font-weight: 600;
+        opacity: 0.5;
       }
     }
 
     .go-icon {
       font-size: 1.4rem;
-      color: var(--app-text-secondary);
-      opacity: 0.4;
+      opacity: 0.3;
     }
   }
 }
@@ -241,7 +234,7 @@ ion-toolbar {
 @keyframes curveEntry {
   from {
     opacity: 0;
-    transform: translateY(30px) scale(0.9);
+    transform: translateY(40px) scale(0.9);
   }
 
   to {
@@ -251,39 +244,11 @@ ion-toolbar {
 }
 
 .curvy-card {
-  animation: curveEntry 0.8s cubic-bezier(0.2, 1, 0.2, 1) both;
-
-  &:nth-child(1) {
-    animation-delay: 0.1s;
-  }
-
-  &:nth-child(2) {
-    animation-delay: 0.2s;
-  }
-
-  &:nth-child(3) {
-    animation-delay: 0.3s;
-  }
-
-  &:nth-child(4) {
-    animation-delay: 0.4s;
-  }
+  animation: curveEntry 0.8s cubic-bezier(0.19, 1, 0.22, 1) both;
 }
 
-/* Dark Mode Curves */
-:host-context(body.dark) {
-  .curvy-card {
-    background: rgba(30, 41, 59, 0.7);
-    border-color: rgba(255, 255, 255, 0.08);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-  }
-
-  .shopping-glass {
-    background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(30, 41, 59, 0.6) 100%);
-  }
-
-  .pill-btn.secondary {
-    background: rgba(255, 255, 255, 0.05);
-    color: var(--app-text-secondary);
+@for $i from 1 through 4 {
+  .curvy-card:nth-child(#{$i}) {
+    animation-delay: #{$i * 0.1}s;
   }
 }

@@ -1,274 +1,132 @@
-ion-content {
-    --background: var(--app-background);
+.page-content {
+    --background: transparent;
 }
 
-.add-item-card {
-    margin: 16px;
-    border-radius: 16px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    background: var(--app-surface);
-
-    ion-card-subtitle {
-        font-weight: 600;
-        color: var(--ion-color-primary);
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        font-size: 0.8rem;
-    }
-}
-
-.input-item {
-    --background: var(--app-input-bg);
-    border-radius: 12px;
-    margin-bottom: 12px;
-    --padding-start: 16px;
-    --padding-end: 16px;
-    border: 1px solid var(--app-input-border);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-
-    ion-input {
-        --placeholder-color: var(--app-text-secondary);
-        --placeholder-opacity: 0.7;
-        --color: var(--app-text-main);
-        font-weight: 500;
-
-        /* Ensure label is also themed */
-        color: var(--app-text-main);
-    }
-}
-
-.add-btn {
-    text-transform: none;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    height: 52px;
-    --box-shadow: 0 4px 6px -1px rgba(var(--ion-color-secondary-rgb), 0.3);
-    font-size: 1.05rem;
-    white-space: normal;
+.header-btn {
+    --color: var(--app-text-secondary);
+    font-size: 1.1rem;
 }
 
 .list-container {
-    padding-bottom: 80px;
+    padding-bottom: 120px;
 }
 
 .shopping-item-sliding {
-    margin-bottom: 10px;
+    margin-bottom: 1rem;
+    overflow: visible;
 }
 
 .shopping-item-card {
-    --background: var(--app-surface);
-    margin: 0 16px;
-    border-radius: 16px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
-    border: 1px solid var(--app-input-border);
-    overflow: hidden;
+    --padding-start: 1rem;
+    --inner-padding-end: 1rem;
+    --min-height: 80px;
 
     h2 {
-        font-weight: 700;
-        color: var(--app-text-main);
-        font-size: 1.1rem;
-        transition: all 0.3s ease;
+        font-weight: 800;
+        letter-spacing: -0.3px;
+        font-size: 1.15rem;
         margin-bottom: 4px;
     }
 
     p {
         font-size: 0.9rem;
-        color: var(--app-text-secondary);
-    }
-
-    .unit-price {
-        font-size: 0.75rem;
-        color: var(--app-text-secondary);
-        opacity: 0.7;
-        margin-top: 2px;
-    }
-
-    &.item-has-focus {
-        --background: var(--app-surface);
+        font-weight: 500;
+        opacity: 0.8;
     }
 }
 
-.item-name-row {
-    display: flex;
-    align-items: center;
-
-    h3 {
-        margin: 0;
-    }
+.favorite-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--ion-color-danger);
+    border-radius: 50%;
+    margin-left: 10px;
+    box-shadow: 0 0 10px var(--ion-color-danger);
 }
 
-.favorite-badge {
-    margin-left: 8px;
-    font-size: 0.65rem;
-    border-radius: 4px;
-    padding: 3px 6px;
-    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+.item-price-pill {
+    background: rgba(var(--ion-color-primary-rgb), 0.1);
+    color: var(--ion-color-primary);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 800;
+    font-size: 0.95rem;
 }
 
 .favorite-item-card {
-    border-left: 4px solid var(--ion-color-danger);
-    background: linear-gradient(to right, rgba(var(--ion-color-danger-rgb), 0.05), transparent);
+    border-left: 5px solid var(--ion-color-danger) !important;
 }
 
-.favorite-btn {
-    --padding-start: 0;
-    --padding-end: 0;
-    margin-right: -10px;
-    --color: var(--app-text-secondary);
+.curvy-option {
+    --border-radius: 0 var(--app-radius-lg) var(--app-radius-lg) 0;
+    font-weight: 800;
+}
+
+/* FAB Styles */
+.add-fab,
+.checkout-fab {
+    --border-radius: 50%;
+    --box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
 
     ion-icon {
-        font-size: 1.3rem;
+        font-size: 1.8rem;
     }
 }
 
-.completed-text {
-    text-decoration: line-through;
-    color: var(--app-text-secondary) !important;
-    font-style: italic;
-    opacity: 0.6;
-}
-
+/* Empty State Modern */
 .empty-state {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-top: 50px;
+    margin-top: 100px;
+    opacity: 0.6;
 
     ion-icon {
-        font-size: 64px;
-        margin-bottom: 16px;
-        opacity: 0.5;
+        font-size: 80px;
+        margin-bottom: 1rem;
     }
 
     h3 {
+        font-weight: 800;
         margin: 0;
+    }
+}
+
+/* Modal Styling */
+ion-modal {
+    --border-radius: var(--app-radius-xl) var(--app-radius-xl) 0 0;
+
+    ion-toolbar {
+        --background: var(--app-glass-bg);
+        --padding-top: 20px;
+    }
+}
+
+.input-item {
+    --background: rgba(var(--ion-color-primary-rgb), 0.05);
+    border-radius: 20px;
+    margin-bottom: 1rem;
+    padding: 0 0.5rem;
+
+    ion-label {
         font-weight: 700;
-        color: var(--ion-color-dark);
-    }
-
-    p {
-        margin-top: 8px;
-        color: var(--ion-color-medium);
+        color: var(--ion-color-primary) !important;
     }
 }
 
-.checkout-fab,
-.add-fab {
-    box-shadow: 0 4px 16px rgba(var(--ion-color-success-rgb), 0.4);
-}
-
-.add-fab {
-    --box-shadow: 0 4px 16px rgba(var(--ion-color-secondary-rgb), 0.4);
-}
-
-.clear-icon {
-    font-size: 1.4rem;
-    color: white;
-}
-
-.suggestions-hint {
-    text-align: center;
-    color: var(--app-text-secondary);
-    font-size: 0.9rem;
-    margin-bottom: 20px;
-}
-
-.suggestions-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    justify-content: center;
+.add-btn {
+    height: 60px;
+    --border-radius: 30px;
+    font-size: 1.1rem;
+    --box-shadow: 0 10px 20px rgba(var(--ion-color-primary-rgb), 0.3);
 }
 
 .suggestion-chip {
-    --background: var(--app-surface);
-    --color: var(--ion-color-primary);
-    border: 1px solid var(--ion-color-primary);
-    font-weight: 600;
-    transition: all 0.2s ease;
-
-    &:active {
-        transform: scale(0.9);
-        --background: var(--ion-color-primary);
-        --color: white;
-    }
-
-    ion-icon {
-        color: inherit;
-    }
-}
-
-/* Modals */
-.modal-content,
-.edit-modal-content {
-    --background: var(--app-background);
-}
-
-.history-suggestions {
-    margin-top: 20px;
-
-    ion-list-header {
-        font-weight: 700;
-        color: var(--ion-color-dark);
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        font-size: 0.85rem;
-        background: transparent;
-        padding-bottom: 10px;
-    }
-}
-
-.suggestions-list {
+    --padding-top: 10px;
+    --padding-bottom: 10px;
     background: var(--app-surface);
-    border-radius: 16px;
-    overflow: hidden;
-    margin: 0;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.suggestion-item {
-    --background: transparent;
-    --padding-start: 10px;
-
-    h3 {
-        color: var(--app-text-main);
-        font-size: 1rem;
-        margin-bottom: 4px;
-    }
-
-    p {
-        color: var(--app-text-secondary);
-        font-size: 0.85rem;
-    }
-}
-
-.edit-form {
-    padding-top: 10px;
-
-    .save-btn {
-        margin-top: 32px;
-        height: 52px;
-        font-weight: 700;
-        --box-shadow: 0 4px 12px rgba(var(--ion-color-success-rgb), 0.3);
-    }
-}
-
-.edit-input-item {
-    --background: var(--app-surface);
-    border-radius: 12px;
-    margin-bottom: 16px;
-    border: 1px solid var(--app-input-border);
-    --padding-start: 16px;
-
-    ion-label {
-        font-weight: 600;
-        color: var(--ion-color-primary) !important;
-        margin-bottom: 8px;
-    }
-
-    ion-input {
-        font-weight: 500;
-        --color: var(--app-text-main);
-    }
+    border: 1px solid var(--app-glass-border);
+    margin: 5px;
+    font-weight: 600;
 }

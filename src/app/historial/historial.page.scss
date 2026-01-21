@@ -1,113 +1,128 @@
-ion-content {
-    --background: var(--app-background);
+.header-btn {
+    --color: var(--app-text-secondary);
 }
 
-.history-list {
-    margin: 16px;
+.selection-count {
+    font-size: 1rem;
+    font-weight: 800;
+    margin-right: 8px;
 }
 
-.history-accordion {
-    margin-bottom: 16px;
-    border-radius: 16px;
-    background: var(--app-surface);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
-    border: 1px solid var(--app-input-border);
-    overflow: hidden;
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 60vh;
+    opacity: 0.5;
 
-    ion-item[slot="header"] {
-        --background: var(--app-surface);
-        --border-color: transparent;
-        --padding-start: 16px;
-        --padding-end: 16px;
-
-        ion-label {
-            h2 {
-                color: var(--app-text-main);
-                font-weight: 700;
-            }
-
-            p {
-                color: var(--app-text-secondary);
-            }
-        }
-    }
-}
-
-.content-wrapper {
-    background: var(--app-background);
-    opacity: 0.95;
-}
-
-.history-item {
-    --background: transparent;
-    border-bottom: 1px dashed var(--app-input-border);
-
-    &:last-child {
-        border-bottom: none;
+    ion-icon {
+        font-size: 80px;
+        margin-bottom: 1rem;
     }
 
     h3 {
-        font-size: 1rem;
-        font-weight: 600;
-        color: var(--app-text-main);
+        font-weight: 800;
+        margin: 0;
+    }
+}
+
+.organic-accordion {
+    margin-bottom: 1rem;
+    border-radius: var(--app-radius-lg);
+    background: var(--app-surface);
+    border: 1px solid var(--app-glass-border);
+    overflow: hidden;
+    box-shadow: 0 10px 25px -10px rgba(0, 0, 0, 0.05);
+
+    &.accordion-expanded {
+        box-shadow: 0 20px 40px -15px rgba(var(--ion-color-primary-rgb), 0.2);
+    }
+}
+
+.accordion-header {
+    --background: transparent;
+    --min-height: 80px;
+
+    .date-sphere {
+        width: 44px;
+        height: 44px;
+        background: rgba(var(--ion-color-primary-rgb), 0.1);
+        color: var(--ion-color-primary);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        font-size: 1.1rem;
+    }
+
+    h3 {
+        font-weight: 800;
+        letter-spacing: -0.5px;
     }
 
     p {
-        color: var(--app-text-secondary);
+        font-size: 0.85rem;
+        opacity: 0.7;
+    }
+}
+
+.total-pill {
+    background: var(--ion-color-success);
+    color: white;
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-weight: 800;
+    font-size: 0.9rem;
+}
+
+.accordion-content {
+    background: var(--app-background);
+}
+
+.history-item {
+    margin-bottom: 0.75rem;
+    --min-height: 70px;
+    --padding-start: 1rem;
+
+    h3 {
+        font-weight: 700;
+        margin-bottom: 2px;
+    }
+
+    p {
         font-size: 0.85rem;
     }
-
-    .unit-price {
-        font-size: 0.75rem;
-        color: var(--app-text-secondary);
-        opacity: 0.7;
-        margin-top: 2px;
-    }
 }
 
-.price-note {
-    display: flex;
-    align-items: center;
-    color: var(--ion-color-dark);
-    font-weight: 600;
+.item-total {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--app-text-main);
+    margin-right: 0.5rem;
 }
 
-.edit-icon {
-    margin-left: 8px;
-    color: var(--ion-color-primary);
-    opacity: 0.7;
+.fav-btn {
+    --padding-start: 0;
+    --padding-end: 0;
+    font-size: 1.2rem;
 }
 
-.edit-modal-content {
-    --background: var(--app-background);
-}
-
-.edit-form {
-    padding-top: 10px;
-
-    .save-btn {
-        margin-top: 32px;
-        height: 52px;
-        font-weight: 700;
-        --box-shadow: 0 4px 12px rgba(var(--ion-color-success-rgb), 0.3);
-    }
-}
-
-.edit-input-item {
-    --background: var(--app-surface);
-    border-radius: 12px;
-    margin-bottom: 16px;
-    border: 1px solid var(--app-input-border);
-    --padding-start: 16px;
+.input-item {
+    --background: rgba(var(--ion-color-primary-rgb), 0.05);
+    border-radius: 20px;
+    margin-bottom: 1rem;
 
     ion-label {
-        font-weight: 600;
+        font-weight: 700;
         color: var(--ion-color-primary) !important;
-        margin-bottom: 8px;
     }
+}
 
-    ion-input {
-        font-weight: 500;
-        --color: var(--app-text-main);
-    }
+.add-btn {
+    height: 60px;
+    --border-radius: 30px;
+    font-weight: 800;
+    --box-shadow: 0 10px 25px rgba(var(--ion-color-primary-rgb), 0.2);
 }

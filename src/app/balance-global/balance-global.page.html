@@ -1,59 +1,67 @@
-<ion-header [translucent]="true">
-    <ion-toolbar color="primary">
+<ion-header class="ion-no-border">
+    <ion-toolbar>
         <ion-buttons slot="start">
-            <ion-back-button defaultHref="/principal"></ion-back-button>
+            <ion-back-button defaultHref="/principal" mode="md"></ion-back-button>
         </ion-buttons>
         <ion-title>Balance Global</ion-title>
     </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="ion-padding alternate-bg">
-    <div class="balance-container">
-        <div class="main-total-card" [class.negative]="balance().total < 0">
-            <ion-text color="medium">Resultado Neto</ion-text>
-            <h1 class="total-amount">{{ balance().total | currency:'EUR' }}</h1>
+<ion-content [fullscreen]="true">
+    <div class="main-wrapper">
+        <div class="total-glass-card glass-panel" [class.negative]="balance().total < 0">
+            <span class="card-tag">Estado de Cuenta</span>
+            <h1 class="balance-vibrancy">{{ balance().total | currency:'EUR' }}</h1>
+            <div class="card-blob"></div>
         </div>
 
-        <ion-row class="summary-row">
-            <ion-col size="6">
-                <div class="summary-box income">
-                    <ion-icon name="arrow-up-circle-outline"></ion-icon>
-                    <div class="labels">
-                        <span class="box-title">Ingresos</span>
-                        <span class="box-amount">{{ balance().ingresos | currency:'EUR' }}</span>
+        <ion-grid class="stats-grid">
+            <ion-row>
+                <ion-col size="6">
+                    <div class="stat-pill income">
+                        <div class="pill-icon">
+                            <ion-icon name="trending-up"></ion-icon>
+                        </div>
+                        <div class="pill-data">
+                            <span class="pill-label">Ingresos</span>
+                            <span class="pill-val">{{ balance().ingresos | currency:'EUR' }}</span>
+                        </div>
                     </div>
-                </div>
-            </ion-col>
-            <ion-col size="6">
-                <div class="summary-box expense">
-                    <ion-icon name="arrow-down-circle-outline"></ion-icon>
-                    <div class="labels">
-                        <span class="box-title">Gastos</span>
-                        <span class="box-amount">{{ balance().gastos | currency:'EUR' }}</span>
+                </ion-col>
+                <ion-col size="6">
+                    <div class="stat-pill expense">
+                        <div class="pill-icon">
+                            <ion-icon name="trending-down"></ion-icon>
+                        </div>
+                        <div class="pill-data">
+                            <span class="pill-label">Gastos</span>
+                            <span class="pill-val">{{ balance().gastos | currency:'EUR' }}</span>
+                        </div>
                     </div>
-                </div>
-            </ion-col>
-        </ion-row>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
 
-        <div class="movements-sections">
-            <h3 class="section-title">Últimos movimientos</h3>
+        <div class="history-section">
+            <h2 class="section-title">Movimientos</h2>
             <ion-list lines="none" class="transparent-list">
-                <ion-item *ngFor="let m of balance().movements" class="movement-item">
-                    <div slot="start" class="type-indicator" [class.is-income]="m.tipo === 'ingreso'">
-                        <ion-icon [name]="m.tipo === 'ingreso' ? 'add' : 'remove'"></ion-icon>
+                <ion-item *ngFor="let m of balance().movements; let i = index"
+                    class="movement-card glass-panel animate-up" [style.animation-delay]="(i * 0.05) + 's'">
+                    <div slot="start" class="movement-icon-box" [class.is-income]="m.tipo === 'ingreso'">
+                        <ion-icon [name]="m.tipo === 'ingreso' ? 'arrow-up' : 'arrow-down'"></ion-icon>
                     </div>
                     <ion-label>
-                        <h2>{{ m.descripcion }}</h2>
-                        <p>{{ m.categoria }} • {{ m.fecha | date:'dd/MM/yyyy' }}</p>
+                        <h3>{{ m.descripcion }}</h3>
+                        <p>{{ m.categoria }} • {{ m.fecha | date:'dd MMM' }}</p>
                     </ion-label>
-                    <ion-text slot="end" [color]="m.tipo === 'ingreso' ? 'success' : 'danger'" class="amount-text">
+                    <div slot="end" class="amount-badge" [class.income-badge]="m.tipo === 'ingreso'">
                         {{ m.tipo === 'ingreso' ? '+' : '-' }}{{ m.cantidad | currency:'EUR' }}
-                    </ion-text>
+                    </div>
                 </ion-item>
 
                 <div *ngIf="balance().movements.length === 0" class="empty-state">
-                    <ion-icon name="receipt-outline"></ion-icon>
-                    <p>No hay movimientos registrados</p>
+                    <ion-icon name="document-text-outline"></ion-icon>
+                    <p>Sin movimientos</p>
                 </div>
             </ion-list>
         </div>

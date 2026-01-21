@@ -1,37 +1,94 @@
-/*
- * App Global CSS
- * ----------------------------------------------------------------------------
- * Put style rules here that you want to apply globally. These styles are for
- * the entire app and not just one component. Additionally, this file can be
- * used as an entry point to import other CSS/Sass files to be included in the
- * output CSS.
- * For more information on global stylesheets, visit the documentation:
- * https://ionicframework.com/docs/layout/global-stylesheets
- */
-
 /* Core CSS required for Ionic components to work properly */
 @import "@ionic/angular/css/core.css";
-
-/* Basic CSS for apps built with Ionic */
 @import "@ionic/angular/css/normalize.css";
 @import "@ionic/angular/css/structure.css";
 @import "@ionic/angular/css/typography.css";
 @import "@ionic/angular/css/display.css";
-
-/* Optional CSS utils that can be commented out */
 @import "@ionic/angular/css/padding.css";
 @import "@ionic/angular/css/float-elements.css";
 @import "@ionic/angular/css/text-alignment.css";
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
-
-/**
- * Ionic Dark Mode
- * -----------------------------------------------------
- * For more info, please see:
- * https://ionicframework.com/docs/theming/dark-mode
- */
-
-/* @import "@ionic/angular/css/palettes/dark.always.css"; */
-/* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import "@ionic/angular/css/palettes/dark.system.css";
+
+/* Organic Global Styling */
+body {
+    --app-radius-organic: 32px;
+}
+
+/* Background Logic */
+ion-content::part(background) {
+    background: var(--app-background);
+}
+
+/* Global Card Refresh - High Curvature Glass */
+ion-card {
+    --border-radius: var(--app-radius-lg);
+    border-radius: var(--app-radius-lg);
+    border: 1px solid var(--app-glass-border) !important;
+    background: var(--app-glass-bg) !important;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: 0 16px 32px -12px rgba(0, 0, 0, 0.08);
+    margin: 1.2rem 1rem;
+}
+
+/* Global Item Refresh - Pill-like for lists */
+ion-item {
+    --border-radius: var(--app-radius-md);
+    --background: transparent;
+    --inner-padding-end: 1rem;
+    margin: 0.6rem 0;
+
+    &::part(native) {
+        border-radius: var(--app-radius-md);
+    }
+}
+
+/* Global Toolbar Styling */
+ion-toolbar {
+    --background: transparent;
+    --border-style: none;
+    --padding-top: 10px;
+}
+
+ion-title {
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    font-size: 1.3rem;
+}
+
+/* Global Button Refresh - Full Pill */
+ion-button {
+    --border-radius: var(--app-radius-pill);
+    font-weight: 800;
+
+    &::part(native) {
+        border-radius: var(--app-radius-pill);
+    }
+}
+
+/* Glassmorphism Classes */
+.glass-effect {
+    background: var(--app-glass-bg);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid var(--app-glass-border);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-up {
+    animation: fadeInUp 0.6s cubic-bezier(0.19, 1, 0.22, 1) both;
+}

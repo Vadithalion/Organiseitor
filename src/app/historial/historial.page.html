@@ -1,16 +1,17 @@
-<ion-header [translucent]="true">
+<ion-header class="ion-no-border">
   <ion-toolbar>
-    <ion-title>
-      Historial de Compras
-    </ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/principal" mode="md"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Historial</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="isSelectionMode ? deleteSelected() : toggleSelectionMode()"
-        [color]="isSelectionMode ? 'danger' : 'primary'">
+        [color]="isSelectionMode ? 'danger' : 'primary'" class="header-btn">
         <ng-container *ngIf="!isSelectionMode">
           <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
         </ng-container>
         <ng-container *ngIf="isSelectionMode">
-          <span style="font-size: 0.9rem; margin-right: 5px;">{{ selectedPurchaseIds.length }}</span>
+          <span class="selection-count">{{ selectedPurchaseIds.length }}</span>
           <ion-icon slot="icon-only" name="trash"></ion-icon>
         </ng-container>
       </ion-button>
@@ -19,86 +20,77 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Historial</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div *ngIf="shoppingService.history().length === 0" class="ion-text-center ion-padding">
-    <p>No hay compras anteriores.</p>
+  <div *ngIf="shoppingService.history().length === 0" class="empty-state">
+    <ion-icon name="calendar-outline"></ion-icon>
+    <h3>Sin historial</h3>
+    <p>Tus compras aparecerán aquí.</p>
   </div>
 
-  <ion-accordion-group class="history-list">
-    <ion-accordion *ngFor="let purchase of shoppingService.history()" class="history-accordion">
-      <ion-item slot="header" color="light">
-        <!-- Checkbox for selection mode -->
-        <ion-checkbox *ngIf="isSelectionMode" slot="start" [checked]="selectedPurchaseIds.includes(purchase.id)"
-          (ionChange)="togglePurchaseSelection(purchase.id)" (click)="$event.stopPropagation()"></ion-checkbox>
+  <div class="history-container ion-padding">
+    <ion-accordion-group class="organic-accordion-group">
+      <ion-accordion *ngFor="let purchase of shoppingService.history(); let i = index"
+        class="organic-accordion animate-up" [style.animation-delay]="(i * 0.1) + 's'">
+        <ion-item slot="header" class="accordion-header">
+          <ion-checkbox *ngIf="isSelectionMode" slot="start" [checked]="selectedPurchaseIds.includes(purchase.id)"
+            (ionChange)="togglePurchaseSelection(purchase.id)" (click)="$event.stopPropagation()"></ion-checkbox>
 
-        <ion-icon *ngIf="!isSelectionMode" name="calendar-outline" slot="start" color="primary"></ion-icon>
+          <div class="date-sphere" slot="start" *ngIf="!isSelectionMode">
+            <span>{{ purchase.date | date:'dd' }}</span>
+          </div>
 
-        <ion-label>
-          <h3>{{ purchase.date | date:'dd MMM yyyy' }}</h3>
-          <p>{{ purchase.date | date:'HH:mm' }}</p>
-        </ion-label>
-        <ion-badge slot="end" color="success">{{ purchase.total | currency:'EUR' }}</ion-badge>
-      </ion-item>
+          <ion-label>
+            <h3>{{ purchase.date | date:'MMMM yyyy' | titlecase }}</h3>
+            <p>{{ purchase.date | date:'HH:mm' }} • {{ purchase.items.length }} productos</p>
+          </ion-label>
+          <div slot="end" class="total-pill">
+            {{ purchase.total | currency:'EUR' }}
+          </div>
+        </ion-item>
 
-      <div class="ion-padding content-wrapper" slot="content">
-        <ion-list lines="none">
-          <ion-item *ngFor="let item of purchase.items" button class="history-item"
-            (click)="openEditModal(purchase.id, item)">
-            <ion-label>
-              <h3>{{ item.name }}</h3>
-              <p>Cant: {{ item.quantity }} &nbsp;|&nbsp; {{ item.price | currency:'EUR' }}</p>
-              <p class="unit-price" *ngIf="item.weight && item.weight > 0">
-                {{ (item.price || 0) / item.weight | currency:'EUR' }}/kg
-              </p>
-            </ion-label>
-            <ion-note slot="end" class="price-note">
-              {{ (item.price || 0) * item.quantity | currency:'EUR' }}
-              <ion-icon class="edit-icon"
-                [name]="shoppingService.favoriteProductNames().includes(item.name) ? 'heart' : 'heart-outline'"
-                [color]="shoppingService.favoriteProductNames().includes(item.name) ? 'danger' : 'medium'"
-                (click)="toggleFavorite($event, item.name)"></ion-icon>
-            </ion-note>
-          </ion-item>
-        </ion-list>
-      </div>
-    </ion-accordion>
-  </ion-accordion-group>
+        <div class="accordion-content ion-padding" slot="content">
+          <ion-list lines="none">
+            <ion-item *ngFor="let item of purchase.items" button class="history-item glass-panel"
+              (click)="openEditModal(purchase.id, item)">
+              <ion-label>
+                <h3>{{ item.name }}</h3>
+                <p>{{ item.quantity }} un. • {{ item.price | currency:'EUR' }}</p>
+              </ion-label>
+              <div slot="end" class="item-total">
+                {{ (item.price || 0) * item.quantity | currency:'EUR' }}
+              </div>
+              <ion-button slot="end" fill="clear" (click)="toggleFavorite($event, item.name)" class="fav-btn">
+                <ion-icon
+                  [name]="shoppingService.favoriteProductNames().includes(item.name) ? 'heart' : 'heart-outline'"
+                  [color]="shoppingService.favoriteProductNames().includes(item.name) ? 'danger' : 'medium'"></ion-icon>
+              </ion-button>
+            </ion-item>
+          </ion-list>
+        </div>
+      </ion-accordion>
+    </ion-accordion-group>
+  </div>
 
   <!-- Edit Modal -->
   <ion-modal [isOpen]="isEditModalOpen" (didDismiss)="isEditModalOpen = false" [initialBreakpoint]="0.5"
     [breakpoints]="[0, 0.5, 0.75]">
     <ng-template>
-      <ion-header>
-        <ion-toolbar color="primary">
+      <ion-header class="ion-no-border">
+        <ion-toolbar>
           <ion-title>Editar {{ editingItemName }}</ion-title>
           <ion-buttons slot="end">
             <ion-button (click)="closeEditModal()">Cerrar</ion-button>
           </ion-buttons>
         </ion-toolbar>
       </ion-header>
-      <ion-content class="ion-padding edit-modal-content">
+      <ion-content class="ion-padding">
         <div class="edit-form">
-          <ion-item class="edit-input-item">
-            <ion-label position="stacked">Precio (€)</ion-label>
-            <ion-input type="number" [(ngModel)]="editPrice" placeholder="0.00"></ion-input>
+          <ion-item class="input-item" lines="none">
+            <ion-input label="Precio (€)" labelPlacement="stacked" type="number" [(ngModel)]="editPrice"></ion-input>
           </ion-item>
-
-          <ion-item class="edit-input-item">
-            <ion-label position="stacked">Peso (kg)</ion-label>
-            <ion-input type="number" [(ngModel)]="editWeight" placeholder="0.00"></ion-input>
+          <ion-item class="input-item" lines="none">
+            <ion-input label="Cantidad" labelPlacement="stacked" type="number" [(ngModel)]="editQuantity"></ion-input>
           </ion-item>
-
-          <ion-item class="edit-input-item">
-            <ion-label position="stacked">Cantidad</ion-label>
-            <ion-input type="number" [(ngModel)]="editQuantity" placeholder="1"></ion-input>
-          </ion-item>
-
-          <ion-button expand="block" (click)="saveEdit()" class="save-btn" color="success" shape="round">
+          <ion-button expand="block" (click)="saveEdit()" class="add-btn ion-margin-top">
             <ion-icon name="save-outline" slot="start"></ion-icon>
             Guardar Cambios
           </ion-button>
@@ -106,5 +98,4 @@
       </ion-content>
     </ng-template>
   </ion-modal>
-
 </ion-content>

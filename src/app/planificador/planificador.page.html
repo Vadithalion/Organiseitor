@@ -1,66 +1,64 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/principal" text=""></ion-back-button>
+      <ion-back-button defaultHref="/principal" mode="md"></ion-back-button>
     </ion-buttons>
     <ion-title>Menú Semanal</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="saveToHistory()">
+      <ion-button (click)="saveToHistory()" class="header-btn">
         <ion-icon slot="icon-only" name="save-outline"></ion-icon>
       </ion-button>
-      <ion-button (click)="goToHistory()">
+      <ion-button (click)="goToHistory()" class="header-btn">
         <ion-icon slot="icon-only" name="list-outline"></ion-icon>
       </ion-button>
-      <ion-button (click)="initSchedule()">
+      <ion-button (click)="initSchedule()" class="header-btn">
         <ion-icon slot="icon-only" name="refresh-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
-  <div class="header-banner">
-    <h1>Planifica tu semana</h1>
-    <p>Organiza tus comidas con post-its</p>
-  </div>
+<ion-content [fullscreen]="true">
+  <div class="main-wrapper">
+    <header class="hero-section">
+      <h1 class="main-phrase">Planifica tu semana</h1>
+      <p class="greeting-tagline">Organiza tus comidas con estilo</p>
+    </header>
 
-  <div class="planner-container" cdkDropListGroup>
-    <!-- Header Row -->
-    <div class="grid-header">
-      <div class="day-col-header">Día</div>
-      <div class="type-col-header">Comida</div>
-      <div class="type-col-header">Cena</div>
-    </div>
+    <div class="planner-container" cdkDropListGroup>
+      <div class="grid-header animate-up">
+        <div class="day-col">Día</div>
+        <div class="type-col">Almuerzo</div>
+        <div class="type-col">Cena</div>
+      </div>
 
-    <!-- Scrollable content -->
-    <div class="days-list">
-      <div *ngFor="let day of days; let dIdx = index" class="day-row">
-        <div class="day-label">
-          <span>{{ day }}</span>
-        </div>
+      <div class="days-list">
+        <div *ngFor="let day of days; let dIdx = index" class="day-row animate-up"
+          [style.animation-delay]="(dIdx * 0.1) + 's'">
+          <div class="day-indicator">
+            <span class="day-initial">{{ day.charAt(0) }}</span>
+            <span class="day-full">{{ day }}</span>
+          </div>
 
-        <!-- Lunch Slot -->
-        <div class="slot-container lunch-slot" cdkDropList [cdkDropListData]="schedule[dIdx][0]"
-          (cdkDropListDropped)="drop($event)">
-          <div class="post-it" *ngFor="let item of schedule[dIdx][0]" cdkDrag>
-            <div class="post-it-content">
-              <textarea [(ngModel)]="item.text" placeholder="Comida" (ngModelChange)="saveSchedule()"></textarea>
-            </div>
-            <div class="drag-handle" cdkDragHandle>
-              <ion-icon name="hand-right-outline"></ion-icon>
+          <!-- Almuerzo -->
+          <div class="organic-slot lunch" cdkDropList [cdkDropListData]="schedule[dIdx][0]"
+            (cdkDropListDropped)="drop($event)">
+            <div class="curvy-postit lunch-theme" *ngFor="let item of schedule[dIdx][0]" cdkDrag>
+              <textarea [(ngModel)]="item.text" placeholder="..." (ngModelChange)="saveSchedule()"></textarea>
+              <div class="drag-handle" cdkDragHandle>
+                <ion-icon name="ellipsis-vertical"></ion-icon>
+              </div>
             </div>
           </div>
-        </div>
 
-        <!-- Dinner Slot -->
-        <div class="slot-container dinner-slot" cdkDropList [cdkDropListData]="schedule[dIdx][1]"
-          (cdkDropListDropped)="drop($event)">
-          <div class="post-it dinner-post-it" *ngFor="let item of schedule[dIdx][1]" cdkDrag>
-            <div class="post-it-content">
-              <textarea [(ngModel)]="item.text" placeholder="Cena" (ngModelChange)="saveSchedule()"></textarea>
-            </div>
-            <div class="drag-handle" cdkDragHandle>
-              <ion-icon name="hand-right-outline"></ion-icon>
+          <!-- Cena -->
+          <div class="organic-slot dinner" cdkDropList [cdkDropListData]="schedule[dIdx][1]"
+            (cdkDropListDropped)="drop($event)">
+            <div class="curvy-postit dinner-theme" *ngFor="let item of schedule[dIdx][1]" cdkDrag>
+              <textarea [(ngModel)]="item.text" placeholder="..." (ngModelChange)="saveSchedule()"></textarea>
+              <div class="drag-handle" cdkDragHandle>
+                <ion-icon name="ellipsis-vertical"></ion-icon>
+              </div>
             </div>
           </div>
         </div>

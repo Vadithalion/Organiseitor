@@ -1,19 +1,18 @@
-<ion-header [translucent]="true">
-  <ion-toolbar color="primary">
+<ion-header class="ion-no-border">
+  <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/principal"></ion-back-button>
+      <ion-back-button defaultHref="/principal" mode="md"></ion-back-button>
     </ion-buttons>
+    <ion-title>Lista de Compra</ion-title>
     <ion-buttons slot="end">
-      <ion-button id="open-suggestions-modal" [disabled]="shoppingService.suggestedProducts().length === 0">
-        <ion-icon slot="icon-only" name="bulb-outline"></ion-icon>
+      <ion-button id="open-suggestions-modal" [disabled]="shoppingService.suggestedProducts().length === 0"
+        class="header-btn">
+        <ion-icon slot="icon-only" name="sparkles-outline"></ion-icon>
       </ion-button>
-      <ion-button (click)="clearList()" [disabled]="shoppingService.items().length === 0">
-        <ion-icon slot="icon-only" name="trash-outline" class="clear-icon"></ion-icon>
+      <ion-button (click)="clearList()" [disabled]="shoppingService.items().length === 0" class="header-btn">
+        <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>
-      Lista de Compra
-    </ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -25,37 +24,29 @@
   </ion-header>
 
   <!-- List Section -->
-  <div class="list-container">
-    <ion-list lines="none" style="background: transparent;">
-      <ion-item-sliding *ngFor="let item of shoppingService.items()" class="shopping-item-sliding">
-        <ion-item class="shopping-item-card" [class.favorite-item-card]="item.isFavorite">
-          <ion-checkbox slot="start" mode="ios" color="secondary" [checked]="selectedItems().includes(item.id)"
+  <div class="list-container ion-padding">
+    <ion-list lines="none" class="transparent-list">
+      <ion-item-sliding *ngFor="let item of shoppingService.items(); let i = index"
+        class="shopping-item-sliding animate-up" [style.animation-delay]="(i * 0.05) + 's'">
+        <ion-item class="shopping-item-card glass-panel" [class.favorite-item-card]="item.isFavorite">
+          <ion-checkbox slot="start" mode="ios" color="primary" [checked]="selectedItems().includes(item.id)"
             (ionChange)="toggleSelection(item.id)"></ion-checkbox>
 
           <ion-label (click)="openEditModal(item)">
             <div class="item-name-row">
               <h2 [class.completed-text]="selectedItems().includes(item.id)">{{ item.name }}</h2>
-              <ion-badge color="warning" *ngIf="item.isFavorite" class="favorite-badge">TOP</ion-badge>
+              <div *ngIf="item.isFavorite" class="favorite-dot"></div>
             </div>
-            <p>Cant: <strong>{{ item.quantity }}</strong> &nbsp;|&nbsp; Est: {{ item.price | currency:'EUR' }}</p>
-            <p class="unit-price" *ngIf="item.weight && item.weight > 0">
-              {{ (item.price || 0) / item.weight | currency:'EUR' }}/kg
-            </p>
+            <p>Cant: <strong>{{ item.quantity }}</strong> • {{ item.price | currency:'EUR' }}</p>
           </ion-label>
-          <ion-chip slot="end" color="tertiary" outline="true">
-            <ion-icon name="cash-outline"></ion-icon>
-            <ion-label>{{ (item.price || 0) * item.quantity | currency:'EUR' }}</ion-label>
-          </ion-chip>
 
-          <ion-button slot="end" fill="clear" class="favorite-btn ion-no-margin"
-            (click)="toggleFavorite($event, item.id)">
-            <ion-icon [name]="item.isFavorite ? 'heart' : 'heart-outline'"
-              [color]="item.isFavorite ? 'danger' : 'medium'"></ion-icon>
-          </ion-button>
+          <div slot="end" class="item-price-pill">
+            <span>{{ (item.price || 0) * item.quantity | currency:'EUR' }}</span>
+          </div>
         </ion-item>
 
         <ion-item-options side="end">
-          <ion-item-option color="danger" (click)="deleteItem(item.id)">
+          <ion-item-option color="danger" (click)="deleteItem(item.id)" class="curvy-option">
             <ion-icon name="trash" slot="icon-only"></ion-icon>
           </ion-item-option>
         </ion-item-options>
