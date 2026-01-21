@@ -14,20 +14,17 @@ export class PrincipalPage {
         private toastCtrl: ToastController
     ) { }
 
-    async showComingSoon() {
-        const toast = await this.toastCtrl.create({
-            message: 'Esta función estará disponible próximamente 🚀',
-            duration: 2000,
-            position: 'bottom',
-            color: 'secondary',
-            cssClass: 'custom-toast'
-        });
-        await toast.present();
+    get greeting(): string {
+        const hour = new Date().getHours();
+        if (hour < 12) return '¡Buenos días!';
+        if (hour < 20) return '¡Buenas tardes!';
+        return '¡Buenas noches!';
     }
 
     async openSettings() {
         const modal = await this.modalCtrl.create({
             component: SettingsModalComponent,
+            cssClass: 'settings-modal',
             initialBreakpoint: 0.5,
             breakpoints: [0, 0.5, 0.75],
             handle: true
