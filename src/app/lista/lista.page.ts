@@ -235,4 +235,14 @@ export class ListaPage {
     });
     await alert.present();
   }
+
+  async showInfo() {
+    const alert = await this.alertCtrl.create({
+      header: 'Lista de Compra',
+      message: 'Gestiona tu lista de la compra actual. Añade productos, marca los que ya tienes y finaliza la compra para guardarlos en el historial y balance global.',
+      buttons: ['Entendido'],
+      cssClass: 'custom-info-alert'
+    });
+    await alert.present();
+  }
 }

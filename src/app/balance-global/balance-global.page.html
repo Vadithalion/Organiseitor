@@ -4,6 +4,11 @@
             <ion-back-button defaultHref="/principal" mode="md"></ion-back-button>
         </ion-buttons>
         <ion-title>Balance Global</ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="showInfo()" class="info-btn">
+                <ion-icon slot="icon-only" name="information-circle-outline"></ion-icon>
+            </ion-button>
+        </ion-buttons>
     </ion-toolbar>
 </ion-header>
 

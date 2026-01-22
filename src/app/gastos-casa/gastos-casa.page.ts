@@ -1,6 +1,7 @@
 import { Component, computed, signal } from '@angular/core';
 import { GastosService } from '../services/gastos.service';
 import { Movimiento } from '../models/movimiento.model';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-gastos-casa',
@@ -59,7 +60,10 @@ export class GastosCasaPage {
     return isSearch ? `Total ${type} de la búsqueda` : `Total ${type}`;
   });
 
-  constructor(public gastosService: GastosService) { }
+  constructor(
+    public gastosService: GastosService,
+    private alertCtrl: AlertController
+  ) { }
 
   private normalize(text: string): string {
     if (!text) return '';
@@ -114,5 +118,15 @@ export class GastosCasaPage {
 
   async deleteItem(id: string) {
     this.gastosService.removeMovimiento(id);
+  }
+
+  async showInfo() {
+    const alert = await this.alertCtrl.create({
+      header: 'Balance Casa',
+      message: 'Lleva el control de las finanzas del hogar. Registra gastos e ingresos, fíltralos por categoría o fecha, y visualiza el balance total de tu economía doméstica.',
+      buttons: ['Entendido'],
+      cssClass: 'custom-info-alert'
+    });
+    await alert.present();
   }
 }

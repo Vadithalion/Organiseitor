@@ -147,4 +147,14 @@ export class PlanificadorPage implements OnInit {
       }
     }
   }
+
+  async showInfo() {
+    const alert = await this.alertCtrl.create({
+      header: 'Menú Semanal',
+      message: 'Organiza tus comidas de la semana. Puedes escribir en cada celda y arrastrar los post-its para intercambiar platos entre días. ¡No olvides guardar tu menú en el historial!',
+      buttons: ['Entendido'],
+      cssClass: 'custom-info-alert'
+    });
+    await alert.present();
+  }
 }

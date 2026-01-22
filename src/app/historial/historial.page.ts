@@ -98,4 +98,14 @@ export class HistorialPage {
     const isCurrentlyFavorite = this.shoppingService.favoriteProductNames().includes(name);
     this.shoppingService.updateGlobalFavorite(name, !isCurrentlyFavorite);
   }
+
+  async showInfo() {
+    const alert = await this.alertCtrl.create({
+      header: 'Historial',
+      message: 'Revisa tus compras pasadas. Puedes ver los detalles de cada ticket, marcar productos como favoritos para que aparezcan en sugerencias y corregir precios o cantidades si es necesario.',
+      buttons: ['Entendido'],
+      cssClass: 'custom-info-alert'
+    });
+    await alert.present();
+  }
 }

@@ -95,13 +95,27 @@
       display: flex;
       align-items: center;
       gap: 1rem;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.2rem;
 
       .icon-sphere {
         margin-bottom: 0;
         background: var(--ion-color-primary);
         color: white;
         border-radius: 50%;
+      }
+
+      .text-group {
+        h3 {
+          font-size: 1.3rem;
+          line-height: 1;
+        }
+
+        p {
+          font-size: 0.8rem;
+          font-weight: 600;
+          opacity: 0.6;
+          margin: 4px 0 0;
+        }
       }
     }
 
@@ -114,10 +128,10 @@
     .pill-btn {
       border: none;
       outline: none;
-      padding: 1rem;
+      padding: 0.9rem;
       border-radius: var(--app-radius-pill);
       font-weight: 800;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       cursor: pointer;
       transition: all 0.2s ease;
 
@@ -135,14 +149,20 @@
   }
 
   .glass-module {
-    height: 140px;
+    height: 110px;
     justify-content: center;
     align-items: center;
-    text-align: center;
     padding: 0.8rem;
 
+    &.wide {
+      grid-column: span 2;
+      height: 90px;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
     .icon-sphere {
-      margin-bottom: 1rem;
+      margin-bottom: 0.5rem;
       background: rgba(var(--color-rgb), 0.1);
       color: var(--color-val);
       border-radius: 50%;
@@ -157,50 +177,64 @@
       --color-val: var(--ion-color-warning);
       --color-rgb: var(--ion-color-warning-rgb);
     }
-  }
 
-  .wide-glass {
-    grid-column: span 2;
-    margin-top: 0.5rem;
-
-    &.balance-global-module {
-      border: 2px solid rgba(var(--ion-color-tertiary-rgb), 0.2);
+    &.balance-small-module {
+      --color-val: var(--ion-color-tertiary);
+      --color-rgb: var(--ion-color-tertiary-rgb);
     }
 
-    .module-content.horizontal {
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
-      width: 100%;
+    &.compact {
+      height: 110px;
 
       .icon-sphere {
-        margin-bottom: 0;
-        background: rgba(var(--ion-color-tertiary-rgb), 0.1);
-        color: var(--ion-color-tertiary);
-        border-radius: 50%;
+        margin-bottom: 0.5rem;
       }
 
-      .text-group {
-        flex: 1;
+      h3 {
+        font-size: 1rem;
+      }
+    }
 
-        h3 {
+    .module-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+
+      &.horizontal {
+        flex-direction: row;
+        gap: 1.2rem;
+        text-align: left;
+        align-items: center;
+
+        .icon-sphere {
+          margin-bottom: 0;
+        }
+
+        .text-group {
+          flex: 1;
+
+          h3 {
+            font-size: 1.2rem;
+          }
+
+          p {
+            margin: 0;
+            font-size: 0.8rem;
+            opacity: 0.5;
+            font-weight: 600;
+          }
+        }
+
+        .go-icon {
           font-size: 1.2rem;
+          opacity: 0.3;
         }
-
-        p {
-          margin: 0.1rem 0 0;
-          font-size: 0.85rem;
-          font-weight: 600;
-          opacity: 0.5;
-        }
-      }
-
-      .go-icon {
-        font-size: 1.4rem;
-        opacity: 0.3;
       }
     }
   }
+
+  /* .wide-glass was removed and integrated into .glass-module.wide */
 
   .blob-bg {
     position: fixed;
@@ -363,6 +397,12 @@
     padding: 2px 8px;
     border-radius: 2px;
     letter-spacing: 1px;
+
+    &.secondary {
+      background: transparent;
+      border: 1px solid var(--ion-color-primary);
+      color: var(--ion-color-primary);
+    }
   }
 
   .alt-icon {

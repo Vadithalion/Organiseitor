@@ -1,5 +1,6 @@
 import { Component, computed } from '@angular/core';
 import { GastosService } from '../services/gastos.service';
+import { AlertController } from '@ionic/angular';
 
 @Component({
     selector: 'app-balance-global',
@@ -26,6 +27,18 @@ export class BalanceGlobalPage {
         };
     });
 
-    constructor(public gastosService: GastosService) { }
+    constructor(
+        public gastosService: GastosService,
+        private alertCtrl: AlertController
+    ) { }
 
+    async showInfo() {
+        const alert = await this.alertCtrl.create({
+            header: 'Balance Global',
+            message: 'Tu salud financiera en un solo lugar. Aquí se suman tus ingresos y se restan todos los gastos, incluyendo los tickets de la compra y los gastos de casa, para darte un balance neto real.',
+            buttons: ['Entendido'],
+            cssClass: 'custom-info-alert'
+        });
+        await alert.present();
+    }
 }

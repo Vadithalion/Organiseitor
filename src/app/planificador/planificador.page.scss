@@ -8,15 +8,40 @@
 
     .main-phrase {
         font-weight: 900;
-        letter-spacing: -1px;
-        font-size: 1.8rem;
+        letter-spacing: -1.5px;
+        font-size: 2rem;
         margin: 0;
+        color: var(--app-text-main);
     }
 
-    .greeting-tagline {
-        font-weight: 500;
-        font-size: 1rem;
-        opacity: 0.7;
+    .discreet-actions {
+        display: flex;
+        gap: 1.2rem;
+        margin-top: 0.6rem;
+        padding-left: 2px;
+
+        .action-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--ion-color-primary);
+            opacity: 0.6;
+            cursor: pointer;
+            transition: all 0.2s ease;
+
+            ion-icon {
+                font-size: 0.95rem;
+            }
+
+            &:active {
+                opacity: 1;
+                transform: translateY(-1px);
+            }
+        }
     }
 }
 

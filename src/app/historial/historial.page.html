@@ -5,6 +5,9 @@
     </ion-buttons>
     <ion-title>Historial</ion-title>
     <ion-buttons slot="end">
+      <ion-button (click)="showInfo()" class="info-btn">
+        <ion-icon slot="icon-only" name="information-circle-outline"></ion-icon>
+      </ion-button>
       <ion-button (click)="isSelectionMode ? deleteSelected() : toggleSelectionMode()"
         [color]="isSelectionMode ? 'danger' : 'primary'" class="header-btn">
         <ng-container *ngIf="!isSelectionMode">

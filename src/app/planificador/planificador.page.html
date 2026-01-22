@@ -5,14 +5,8 @@
     </ion-buttons>
     <ion-title>Menú Semanal</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="saveToHistory()" class="header-btn">
-        <ion-icon slot="icon-only" name="save-outline"></ion-icon>
-      </ion-button>
-      <ion-button (click)="goToHistory()" class="header-btn">
-        <ion-icon slot="icon-only" name="list-outline"></ion-icon>
-      </ion-button>
-      <ion-button (click)="initSchedule()" class="header-btn">
-        <ion-icon slot="icon-only" name="refresh-outline"></ion-icon>
+      <ion-button (click)="showInfo()" class="info-btn">
+        <ion-icon slot="icon-only" name="information-circle-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -22,7 +16,20 @@
   <div class="main-wrapper">
     <header class="hero-section">
       <h1 class="main-phrase">Planifica tu semana</h1>
-      <p class="greeting-tagline">Organiza tus comidas con estilo</p>
+      <div class="discreet-actions animate-up">
+        <div class="action-item" (click)="saveToHistory()">
+          <ion-icon name="save-outline"></ion-icon>
+          <span>Guardar</span>
+        </div>
+        <div class="action-item" (click)="initSchedule()">
+          <ion-icon name="trash-outline"></ion-icon>
+          <span>Limpiar</span>
+        </div>
+        <div class="action-item" (click)="goToHistory()">
+          <ion-icon name="list-outline"></ion-icon>
+          <span>Historial</span>
+        </div>
+      </div>
     </header>
 
     <div class="planner-container" cdkDropListGroup>
