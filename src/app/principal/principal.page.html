@@ -24,16 +24,18 @@
       </header>
 
       <div class="galactic-grid">
+        <!-- PILAR 1: LOGÍSTICA (LA COMPRA) -->
         <div class="tech-card logistics-panel" routerLink="/organiseitor/lista">
           <div class="scanline"></div>
           <div class="card-body">
-            <div class="tech-icon-box"><ion-icon name="cube-outline"></ion-icon></div>
+            <div class="tech-icon-box"><ion-icon name="cart-outline"></ion-icon></div>
             <div class="tech-info">
-              <h3>LOGÍSTICA</h3>
-              <p>SUMINISTROS</p>
+              <h3>SUMINISTROS</h3>
+              <p>LISTA DE COMPRA</p>
             </div>
           </div>
         </div>
+
         <div class="tech-card archives-panel" routerLink="/organiseitor/historial">
           <div class="scanline"></div>
           <div class="card-body">
@@ -44,35 +46,43 @@
             </div>
           </div>
         </div>
-        <div class="tech-card navigation-panel" routerLink="/planificador">
+
+        <!-- PILAR 2: NAVEGACIÓN (MENÚS) -->
+        <div class="tech-card navigation-panel wide" routerLink="/planificador">
           <div class="scanline"></div>
-          <div class="card-body">
+          <div class="card-body horizontal">
             <div class="tech-icon-box"><ion-icon name="navigate-outline"></ion-icon></div>
             <div class="tech-info">
               <h3>NAVEGACIÓN</h3>
-              <p>PLAN SEMANAL</p>
+              <p>PLAN SEMANAL DE COMIDAS</p>
             </div>
+            <ion-icon name="compass-outline" class="alt-icon"></ion-icon>
           </div>
         </div>
-        <div class="tech-card credits-panel" routerLink="/balance-global">
-          <div class="scanline"></div>
-          <div class="card-body">
-            <div class="tech-icon-box"><ion-icon name="card-outline"></ion-icon></div>
-            <div class="tech-info">
-              <h3>CRÉDITOS</h3>
-              <p>BALANCE</p>
-            </div>
-          </div>
-        </div>
-        <div class="tech-card wide command-panel" routerLink="/gastos-casa">
+
+        <!-- PILAR 3: ESTACIÓN DE MANDO (GASTOS CASA) -->
+        <div class="tech-card command-panel wide" routerLink="/gastos-casa">
           <div class="scanline"></div>
           <div class="card-body horizontal">
             <div class="tech-icon-box"><ion-icon name="business-outline"></ion-icon></div>
             <div class="tech-info">
               <h3>ESTACIÓN DE MANDO</h3>
-              <p>SISTEMA CENTRAL DE GASTOS</p>
+              <p>CONTROL CENTRAL DE GASTOS</p>
             </div>
             <ion-icon name="radio-outline" class="pulse-icon"></ion-icon>
+          </div>
+        </div>
+
+        <!-- ACCIÓN GLOBAL: CRÉDITOS (BALANCE) -->
+        <div class="tech-card credits-panel wide footer-module" routerLink="/balance-global">
+          <div class="scanline"></div>
+          <div class="card-body horizontal">
+            <div class="tech-icon-box"><ion-icon name="card-outline"></ion-icon></div>
+            <div class="tech-info">
+              <h3>BALANCE DE CRÉDITOS</h3>
+              <p>ESTADO FINANCIERO GLOBAL</p>
+            </div>
+            <div class="status-badge">GLOBAL</div>
           </div>
         </div>
       </div>
@@ -92,6 +102,7 @@
       </header>
 
       <div class="organic-grid">
+        <!-- PILAR 1: LA COMPRA -->
         <div class="curvy-card shopping-glass">
           <div class="card-header">
             <div class="icon-sphere"><ion-icon name="cart"></ion-icon></div>
@@ -103,6 +114,7 @@
           </div>
         </div>
 
+        <!-- PILAR 2: MENÚS -->
         <div class="curvy-card glass-module menu-module" routerLink="/planificador">
           <div class="module-content">
             <div class="icon-sphere"><ion-icon name="restaurant"></ion-icon></div>
@@ -110,19 +122,21 @@
           </div>
         </div>
 
-        <div class="curvy-card glass-module balance-module" routerLink="/balance-global">
+        <!-- PILAR 3: GASTOS CASA -->
+        <div class="curvy-card glass-module home-small-module" routerLink="/gastos-casa">
           <div class="module-content">
-            <div class="icon-sphere"><ion-icon name="analytics"></ion-icon></div>
-            <h3>Balance</h3>
+            <div class="icon-sphere"><ion-icon name="home"></ion-icon></div>
+            <h3>Gastos Casa</h3>
           </div>
         </div>
 
-        <div class="curvy-card wide-glass home-module" routerLink="/gastos-casa">
+        <!-- ACCIÓN GLOBAL: BALANCE BALANCE -->
+        <div class="curvy-card wide-glass balance-global-module" routerLink="/balance-global">
           <div class="module-content horizontal">
-            <div class="icon-sphere"><ion-icon name="home"></ion-icon></div>
+            <div class="icon-sphere"><ion-icon name="analytics"></ion-icon></div>
             <div class="text-group">
-              <h3>Gastos Casa</h3>
-              <p>Control del hogar</p>
+              <h3>Balance Global</h3>
+              <p>Resumen de todos tus movimientos</p>
             </div>
             <ion-icon name="chevron-forward-outline" class="go-icon"></ion-icon>
           </div>

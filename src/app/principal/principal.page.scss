@@ -1,11 +1,12 @@
-/* --- SHARED BASE --- */
 .main-wrapper {
-  padding: 1.5rem;
+  padding: 1rem;
   height: 100%;
+  max-height: 100vh;
   display: flex;
   flex-direction: column;
   position: relative;
   z-index: 10;
+  overflow: hidden;
 }
 
 .settings-btn {
@@ -16,31 +17,33 @@
 /* --- CLASSIC (ORGANIC) STYLES --- */
 .main-wrapper.classic {
   .hero-section {
-    padding: 0.5rem 0.5rem 2rem;
+    padding: 0 0.5rem 0.8rem;
 
     .main-phrase {
-      font-size: 2rem;
+      font-size: 1.6rem;
       font-weight: 900;
       color: var(--app-text-main);
       margin: 0;
-      letter-spacing: -1.5px;
+      letter-spacing: -1px;
     }
 
     .greeting-tagline {
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       font-weight: 800;
       color: var(--ion-color-primary);
-      margin: 0.2rem 0 0;
+      margin: 0;
       text-transform: uppercase;
-      letter-spacing: 1.5px;
+      letter-spacing: 1px;
     }
   }
 
   .organic-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 1.2rem;
+    grid-template-rows: auto auto auto;
+    gap: 0.8rem;
     flex: 1;
+    align-content: center;
   }
 
   .curvy-card {
@@ -49,30 +52,30 @@
     -webkit-backdrop-filter: blur(16px);
     border-radius: var(--app-radius-xl);
     border: 1px solid var(--app-glass-border);
-    padding: 1.5rem;
-    box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.08);
+    padding: 1rem;
+    box-shadow: 0 10px 25px -10px rgba(0, 0, 0, 0.08);
     transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    animation: curveEntry 0.8s cubic-bezier(0.19, 1, 0.22, 1) both;
+    height: 100%;
 
     &:active {
       transform: scale(0.96);
     }
 
     .icon-sphere {
-      width: 52px;
-      height: 52px;
-      border-radius: 20px;
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 1rem;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+      margin-bottom: 0.6rem;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
 
       ion-icon {
-        font-size: 1.8rem;
+        font-size: 1.4rem;
       }
     }
 
@@ -132,10 +135,11 @@
   }
 
   .glass-module {
-    height: 180px;
+    height: 140px;
     justify-content: center;
     align-items: center;
     text-align: center;
+    padding: 0.8rem;
 
     .icon-sphere {
       margin-bottom: 1rem;
@@ -149,15 +153,19 @@
       --color-rgb: var(--ion-color-secondary-rgb);
     }
 
-    &.balance-module {
-      --color-val: var(--ion-color-tertiary);
-      --color-rgb: var(--ion-color-tertiary-rgb);
+    &.home-small-module {
+      --color-val: var(--ion-color-warning);
+      --color-rgb: var(--ion-color-warning-rgb);
     }
   }
 
   .wide-glass {
     grid-column: span 2;
     margin-top: 0.5rem;
+
+    &.balance-global-module {
+      border: 2px solid rgba(var(--ion-color-tertiary-rgb), 0.2);
+    }
 
     .module-content.horizontal {
       display: flex;
@@ -167,8 +175,8 @@
 
       .icon-sphere {
         margin-bottom: 0;
-        background: rgba(var(--ion-color-warning-rgb), 0.1);
-        color: var(--ion-color-warning);
+        background: rgba(var(--ion-color-tertiary-rgb), 0.1);
+        color: var(--ion-color-tertiary);
         border-radius: 50%;
       }
 
@@ -231,10 +239,10 @@
 /* --- GALACTIC (STAR WARS) STYLES --- */
 .main-wrapper.galactic {
   .hero-section {
-    padding: 1rem 0;
+    padding: 0.5rem 0;
     text-align: center;
     position: relative;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
 
     .main-phrase {
       color: var(--ion-color-primary);
@@ -277,8 +285,10 @@
   .galactic-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 0.8rem;
+    grid-template-rows: auto auto auto auto;
+    gap: 0.6rem;
     flex: 1;
+    align-content: center;
   }
 
   .tech-card {
@@ -344,10 +354,35 @@
     animation: pulse-red 2s infinite;
   }
 
+  .status-badge {
+    margin-left: auto;
+    background: var(--ion-color-primary);
+    color: #000;
+    font-size: 0.6rem;
+    font-weight: 900;
+    padding: 2px 8px;
+    border-radius: 2px;
+    letter-spacing: 1px;
+  }
+
+  .alt-icon {
+    margin-left: auto;
+    font-size: 1.4rem;
+    opacity: 0.4;
+    color: #fff;
+  }
+
+  .credits-panel {
+    margin-top: 0.5rem;
+    border: 1px solid var(--ion-color-primary) !important;
+    background: rgba(255, 232, 31, 0.05) !important;
+  }
+
   .horizontal {
     display: flex;
     align-items: center;
     gap: 1rem;
+    width: 100%;
   }
 }
 
